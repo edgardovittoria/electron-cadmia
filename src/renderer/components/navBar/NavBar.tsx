@@ -14,11 +14,11 @@ export function classNames(...classes: string[]) {
 
 export const Navbar: React.FC<NavbarProps> = () => {
   return (
-    <Popover className="relative bg-white max-h-[100px]">
+    <Popover className="relative bg-white h-[4vh]">
       <div className="mx-auto w-full px-6">
         <div className="flex items-center justify-between border-b-2 border-gray-100 py-1">
           <div className="flex justify-start w-0 flex-1">
-            <span className="text-2xl">CADmIA</span>
+            <span className="text-2xl font-semibold">CADmIA</span>
           </div>
           <Popover.Group as="nav" className="hidden space-x-10 md:flex">
             <FileItem />

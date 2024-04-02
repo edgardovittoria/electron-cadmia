@@ -1,4 +1,3 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { SetUserInfo } from 'cad-library';
 import { useCadmiaModalityManager } from './components/cadmiaModality/useCadmiaModalityManager';
@@ -16,28 +15,19 @@ export default function App() {
   const { useBaseOpactityBasedOnModality } = useCadmiaModalityManager();
   useBaseOpactityBasedOnModality();
   return (
-    <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div className="m-0 h-full">
-              <SetUserInfo />
-              <Navbar />
-              <KeyboardEventMapper />
-              <div className="w-full p-0 relative">
-                <CadmiaCanvas />
-                <TransformationsToolBar />
-                <BinaryOpsToolbar />
-                <MiscToolbar />
-                <ShapesToolbar />
-                <Sidebar />
-              </div>
-              <StatusBar />
-            </div>
-          }
-        />
-      </Routes>
-    </Router>
+    <div className="m-0 h-full">
+      <SetUserInfo />
+      <Navbar />
+      <KeyboardEventMapper />
+      <div className="w-full p-0 relative">
+        <CadmiaCanvas />
+        <TransformationsToolBar />
+        <BinaryOpsToolbar />
+        <MiscToolbar />
+        <ShapesToolbar />
+        <Sidebar />
+      </div>
+      <StatusBar />
+    </div>
   );
 }
