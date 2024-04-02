@@ -1,4 +1,4 @@
-import { FC, Fragment } from 'react';
+import React, { FC, Fragment } from 'react';
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { baseShapes, useAddToTheSceneANewShape } from './useAddToTheSceneANewShape';
@@ -13,16 +13,15 @@ export const Shapes: FC = () => {
         <Popover className="relative">
             {({ open }) => (
                 <>
-                    <Popover.Button
-                        className={classNames(open ? 'text-gray-900' : 'text-gray-500', 'group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900'
-                        )}
-                    >
-                        <span>Shapes</span>
-                        <ChevronDownIcon
-                            className={classNames(open ? 'text-gray-600' : 'text-gray-400', 'ml-2 h-5 w-5 group-hover:text-gray-500')}
-                            aria-hidden="true"
-                        />
-                    </Popover.Button>
+                  <Popover.Button
+                    className="group inline-flex items-center rounded-md bg-white text-base text-black font-medium hover:text-gray-900"
+                  >
+                    <span>Shapes</span>
+                    <ChevronDownIcon
+                      className="ml-2 h-5 w-5 text-black group-hover:text-gray-500"
+                      aria-hidden="true"
+                    />
+                  </Popover.Button>
                     <Transition
                         as={Fragment}
                         enter="transition ease-out duration-200"

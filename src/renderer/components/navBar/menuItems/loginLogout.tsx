@@ -4,7 +4,7 @@ import {
   ArrowRightOnRectangleIcon,
   ChevronDownIcon,
 } from '@heroicons/react/20/solid';
-import { FC, Fragment } from 'react';
+import React, { FC, Fragment } from 'react';
 import { classNames } from '../NavBar';
 
 interface LoginLogoutProps {}
@@ -19,17 +19,11 @@ export const LoginLogout: FC<LoginLogoutProps> = () => {
             {({ open }) => (
               <>
                 <Popover.Button
-                  className={classNames(
-                    open ? 'text-gray-900' : 'text-gray-500',
-                    'group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900',
-                  )}
+                  className="group inline-flex items-center rounded-md bg-white text-base text-black font-medium hover:text-gray-900"
                 >
                   <span>{user?.name}</span>
                   <ChevronDownIcon
-                    className={classNames(
-                      open ? 'text-gray-600' : 'text-gray-400',
-                      'ml-2 h-5 w-5 group-hover:text-gray-500',
-                    )}
+                    className="ml-2 h-5 w-5 text-black group-hover:text-gray-500"
                     aria-hidden="true"
                   />
                 </Popover.Button>
