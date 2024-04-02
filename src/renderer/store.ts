@@ -2,19 +2,19 @@ import {
     combineReducers,
     configureStore,
 } from '@reduxjs/toolkit';
-import {TransformationsToolbarSlice} from "./components/transformationsToolbar/toolbarTransformationSlice";
+import {TransformationsToolbarSlice} from "./canvas/components/transformationsToolbar/toolbarTransformationSlice";
 import undoable, {excludeAction} from 'redux-undo';
 import { persistReducer } from 'redux-persist'
 import persistStore from "redux-persist/es/persistStore";
 import localforage from 'localforage';
 import { CanvasSlice, UsersSlice } from 'cad-library';
-import { BinaryOperationsToolbarSlice } from './components/binaryOperationsToolbar/binaryOperationsToolbarSlice';
-import { CadmiaModalitySlice } from './components/cadmiaModality/cadmiaModalitySlice';
-import { SidebarSlice } from './components/sideBar/sidebarSlice';
-import {StatusBarSlice} from "./components/statusBar/statusBarSlice";
-import { MiscToolbarSlice } from './components/miscToolbar/miscToolbarSlice';
-import { ShapesToolbarSlice } from './components/navBar/menuItems/shapes/shapesToolbarSlice';
-import { ViewItemSlice } from './components/navBar/menuItems/view/viewItemSlice';
+import { BinaryOperationsToolbarSlice } from './canvas/components/binaryOperationsToolbar/binaryOperationsToolbarSlice';
+import { CadmiaModalitySlice } from './canvas/components/cadmiaModality/cadmiaModalitySlice';
+import { SidebarSlice } from './canvas/components/sideBar/sidebarSlice';
+import {StatusBarSlice} from "./canvas/components/statusBar/statusBarSlice";
+import { MiscToolbarSlice } from './canvas/components/miscToolbar/miscToolbarSlice';
+import { ShapesToolbarSlice } from './canvas/components/navBar/menuItems/shapes/shapesToolbarSlice';
+import { ViewItemSlice } from './canvas/components/navBar/menuItems/view/viewItemSlice';
 
 const persistConfig = {
     key: 'root',
@@ -31,7 +31,7 @@ const rootReducer = combineReducers({
     cadmiaModality: CadmiaModalitySlice.reducer,
     sidebar: SidebarSlice.reducer,
     user: UsersSlice.reducer,
-    statusBarSlice: StatusBarSlice.reducer, 
+    statusBarSlice: StatusBarSlice.reducer,
     miscToolbar: MiscToolbarSlice.reducer,
     shapesToolbar: ShapesToolbarSlice.reducer,
     viewItemState: ViewItemSlice.reducer
