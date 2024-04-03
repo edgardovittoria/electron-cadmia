@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
-import Dashboard from './dashboard/components/Dashboard';
+import Dashboard from './dashboard/Dashboard';
 import Canvas from './canvas/Canvas';
 
 export default function App() {
