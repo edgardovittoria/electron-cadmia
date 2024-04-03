@@ -24,8 +24,8 @@ const Dashboard: React.FC<DashboardProps> = ({ showCad, setShowCad }) => {
   const [selectedMenuItem, setSelectedMenuItem] = useState<string>('MP');
   const [models, setModels] = useState<FaunaCadModel[]>([]);
   const deleteModel = (model: FaunaCadModel) => {
-    setModels(models.filter(m => m.id !== model.id))
-  }
+    setModels(models.filter((m) => m.id !== model.id));
+  };
   const { execQuery } = useFaunaQuery();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -45,34 +45,44 @@ const Dashboard: React.FC<DashboardProps> = ({ showCad, setShowCad }) => {
         setSelectedMenuItem={setSelectedMenuItem}
       />
       <div
-        className={`w-4/5 h-[100vh] flex ${user ? 'items-start pt-20' : 'items-center justify-center'} relative`}
+        className={`w-4/5 h-[100vh] flex ${user && selectedMenuItem === 'MP' ? 'items-start pt-20' : 'items-center justify-center'} relative`}
       >
         {user ? (
-          <div className="w-full flex flex-col items-start">
-            <div className="w-full px-10 grid grid-cols-5 gap-4">
-              {models.map((m) => {
-                return (
-                  <MyProject
-                    model={m}
-                    setShowCad={setShowCad}
-                    deleteModel={deleteModel}
-                  />
-                );
-              })}
-              <div
-                className="px-10 py-12 relative rounded-xl border border-dashed border-black flex flex-col items-center hover:bg-black hover:text-white hover:cursor-pointer hover:shadow-2xl"
-                onClick={() => {
-                  dispatch(resetState());
-                  dispatch(ActionCreators.clearHistory());
-                  setShowCad(true);
-                }}
-              >
-                <AiOutlineAppstoreAdd size={75} />
-                <span className="absolute bottom-2 font-semibold">
-                  New Blank Project
+          <div className="w-full">
+            {selectedMenuItem === 'MP' && (
+              <div className="w-full px-10 grid grid-cols-5 gap-4">
+                {models.map((m) => {
+                  return (
+                    <MyProject
+                      model={m}
+                      setShowCad={setShowCad}
+                      deleteModel={deleteModel}
+                    />
+                  );
+                })}
+                <div
+                  className="px-10 py-12 relative rounded-xl border border-dashed border-black flex flex-col items-center hover:bg-black hover:text-white hover:cursor-pointer hover:shadow-2xl"
+                  onClick={() => {
+                    dispatch(resetState());
+                    dispatch(ActionCreators.clearHistory());
+                    setShowCad(true);
+                  }}
+                >
+                  <AiOutlineAppstoreAdd size={75} />
+                  <span className="absolute bottom-2 font-semibold">
+                    New Blank Project
+                  </span>
+                </div>
+              </div>
+            )}
+            {selectedMenuItem === 'MSP' && (
+              <div className="flex flex-col items-center gap-3">
+                <img src={boxIcon} alt="box icon" />
+                <span className="text-xl font-semibold">
+                  No Shared Projects
                 </span>
               </div>
-            </div>
+            )}
           </div>
         ) : (
           <div className="flex flex-col items-center gap-3">

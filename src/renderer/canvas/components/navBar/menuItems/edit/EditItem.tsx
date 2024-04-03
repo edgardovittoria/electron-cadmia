@@ -22,11 +22,11 @@ export const EditItem: React.FC<EditItemProps> = () => {
       {({ open }) => (
         <>
           <Popover.Button
-            className="group inline-flex items-center rounded-md bg-white text-base text-black font-medium hover:text-gray-900"
+            className="group inline-flex items-center rounded-md bg-white text-base text-black font-medium p-1 hover:bg-black hover:text-white hover:cursor-pointer"
           >
             <span>Edit</span>
             <ChevronDownIcon
-              className="ml-2 h-5 w-5 text-black group-hover:text-gray-500"
+              className="ml-2 h-5 w-5"
               aria-hidden="true"
             />
           </Popover.Button>
@@ -49,14 +49,14 @@ export const EditItem: React.FC<EditItemProps> = () => {
                       dispatch(resetState());
                       dispatch(ActionCreators.clearHistory());
                     }}
-                    className="flex justify-between"
+                    className="flex justify-between hover:bg-black hover:text-white hover:cursor-pointer items-center rounded-lg p-2"
                   >
-                    <div className="-m-3 flex items-center rounded-lg p-2 hover:bg-gray-50">
+                    <div className="flex flex-row items-center">
                       <FontAwesomeIcon
                         icon={faTrash}
-                        className="text-gray-900 mr-5"
+                        className="mr-5"
                       />
-                      <span className="text-gray-900 text-base font-medium">
+                      <span className="text-base font-medium">
                         Clear All
                       </span>
                     </div>

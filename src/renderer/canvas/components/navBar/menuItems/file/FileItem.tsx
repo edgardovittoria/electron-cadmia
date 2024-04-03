@@ -115,11 +115,11 @@ export const FileItem: React.FC<FileItemProps> = () => {
         {({ open }) => (
           <>
             <Popover.Button
-              className="group inline-flex items-center rounded-md bg-white text-base text-black font-medium hover:text-gray-900"
+              className="group inline-flex items-center rounded-md bg-white text-base text-black font-medium p-1 hover:bg-black hover:text-white hover:cursor-pointer"
             >
               <span>File</span>
               <ChevronDownIcon
-                className="ml-2 h-5 w-5 text-black group-hover:text-gray-500"
+                className="ml-2 h-5 w-5"
                 aria-hidden="true"
               />
             </Popover.Button>
@@ -138,13 +138,13 @@ export const FileItem: React.FC<FileItemProps> = () => {
                   <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                     {isAuthenticated ? (
                       <span
-                        className="-m-3 flex items-start rounded-lg p-2 hover:bg-gray-50"
+                        className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
                         onClick={() => setModalSave(true)}
                       >
                         <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
                           <div className="flex">
                             <CloudArrowDownIcon className="w-[20px] mr-4" />
-                            <p className="text-base font-medium text-gray-900">
+                            <p className="text-base font-medium">
                               Save To DB
                             </p>
                           </div>
@@ -152,7 +152,7 @@ export const FileItem: React.FC<FileItemProps> = () => {
                         </div>
                       </span>
                     ) : (
-                      <span className="-m-3 flex items-start rounded-lg p-2 hover:bg-gray-50">
+                      <span className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white">
                         <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
                           <div className="flex">
                             <CloudArrowDownIcon className="w-[20px] mr-4 text-gray-300" />
@@ -166,13 +166,13 @@ export const FileItem: React.FC<FileItemProps> = () => {
                     )}
                     {isAuthenticated ? (
                       <span
-                        className="-m-3 flex items-start rounded-lg p-2 hover:bg-gray-50"
+                        className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
                         onClick={() => setModalLoad(true)}
                       >
                         <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
                           <div className="flex">
                             <CloudArrowUpIcon className="w-[20px] mr-4" />
-                            <p className="text-base font-medium text-gray-900">
+                            <p className="text-base font-medium">
                               Load From DB
                             </p>
                           </div>
@@ -180,7 +180,7 @@ export const FileItem: React.FC<FileItemProps> = () => {
                         </div>
                       </span>
                     ) : (
-                      <span className="-m-3 flex items-start rounded-lg p-2 hover:bg-gray-50">
+                      <span className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white">
                         <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
                           <div className="flex">
                             <CloudArrowUpIcon className="w-[20px] mr-4 text-gray-300" />
@@ -193,14 +193,14 @@ export const FileItem: React.FC<FileItemProps> = () => {
                       </span>
                     )}
                     <ImportCadProjectButton
-                      className="-m-3 flex items-start rounded-lg p-2 hover:bg-gray-50"
+                      className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
                       actionParams={{} as ImportActionParamsObject}
                       importAction={importStateCanvas}
                     >
                       <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
                         <div className="flex">
                           <ArrowDownTrayIcon className="w-[20px] mr-4" />
-                          <p className="text-base font-medium text-gray-900">
+                          <p className="text-base font-medium">
                             Import Project
                           </p>
                         </div>
@@ -208,13 +208,13 @@ export const FileItem: React.FC<FileItemProps> = () => {
                       </div>
                     </ImportCadProjectButton>
                     <div
-                      className="-m-3 flex items-start rounded-lg p-2 hover:bg-gray-50"
+                      className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
                       onClick={onImportSTLClick}
                     >
                       <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
                         <div className="flex">
                           <ArrowDownTrayIcon className="w-[20px] mr-4" />
-                          <p className="text-base font-medium text-gray-900">
+                          <p className="text-base font-medium">
                             Import STL File
                           </p>
                         </div>
@@ -237,7 +237,7 @@ export const FileItem: React.FC<FileItemProps> = () => {
                       />
                     </div>
                     <span
-                      className="-m-3 flex items-start rounded-lg p-2 hover:bg-gray-50"
+                      className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
                       onClick={() => {
                         exportJSONProject(canvasState);
                       }}
@@ -245,7 +245,7 @@ export const FileItem: React.FC<FileItemProps> = () => {
                       <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
                         <div className="flex">
                           <ArrowUpTrayIcon className="w-[20px] mr-4" />
-                          <p className="text-base font-medium text-gray-900">
+                          <p className="text-base font-medium">
                             Export Project
                           </p>
                         </div>
@@ -255,7 +255,7 @@ export const FileItem: React.FC<FileItemProps> = () => {
                       </div>
                     </span>
                     <span
-                      className="-m-3 flex items-start rounded-lg p-2 hover:bg-gray-50"
+                      className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
                       onClick={() => {
                         exportToSTLFormat(entities);
                       }}
@@ -263,7 +263,7 @@ export const FileItem: React.FC<FileItemProps> = () => {
                       <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
                         <div className="flex">
                           <ArrowUpTrayIcon className="w-[20px] mr-4" />
-                          <p className="text-base font-medium text-gray-900">
+                          <p className="text-base font-medium">
                             Export STL Format
                           </p>
                         </div>

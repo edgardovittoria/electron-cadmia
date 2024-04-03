@@ -40,7 +40,7 @@ export const TransformationsToolBar: React.FC<TransformationsToolBarProps> = () 
                                     className="text-black w-7 h-7"
                                 />
                                 <div className="absolute left-10 bottom-0 flex flex-col items-center hidden mb-10 group-hover:flex">
-                                    <span className="relative z-10 p-2 leading-none uppercase text-white whitespace-no-wrap bg-gray-600 shadow-lg rounded-md">{transformation.type}</span>
+                                    <span className="relative z-10 p-2 leading-none uppercase text-white whitespace-no-wrap bg-black shadow-lg rounded-md">{transformation.type}</span>
                                 </div>
                             </div>
                         )

@@ -70,7 +70,7 @@ export const MiscToolbar: React.FC<MiscToolbarProps> = () => {
               }}
             />
             <div className="absolute left-10 bottom-0 flex flex-col items-center hidden mb-10 group-hover:flex">
-              <span className="relative z-10 p-2 leading-none text-white whitespace-no-wrap bg-gray-600 shadow-lg rounded-md">
+              <span className="relative z-10 p-2 leading-none text-white whitespace-no-wrap bg-black shadow-lg rounded-md">
                 CLONE
               </span>
             </div>
@@ -87,7 +87,7 @@ export const MiscToolbar: React.FC<MiscToolbarProps> = () => {
               className="w-8 h-8"
             />
             <div className="absolute left-10 bottom-0 flex flex-col items-center hidden mb-10 group-hover:flex">
-              <span className="relative z-10 p-2 leading-none text-white whitespace-no-wrap bg-gray-600 shadow-lg rounded-md">
+              <span className="relative z-10 p-2 leading-none text-white whitespace-no-wrap bg-black shadow-lg rounded-md">
                 SINGLE SELECTION
               </span>
             </div>
@@ -104,7 +104,7 @@ export const MiscToolbar: React.FC<MiscToolbarProps> = () => {
               className="w-8 h-8"
             />
             <div className="absolute left-10 bottom-0 flex flex-col items-center hidden mb-10 group-hover:flex">
-              <span className="relative z-10 p-2 leading-none text-white whitespace-no-wrap bg-gray-600 shadow-lg rounded-md">
+              <span className="relative z-10 p-2 leading-none text-white whitespace-no-wrap bg-black shadow-lg rounded-md">
                 MULTIPLE SELECTION
               </span>
             </div>
