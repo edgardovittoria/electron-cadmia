@@ -22,7 +22,7 @@ export interface ContextMenuProps {
   deleteModel: (v: FaunaCadModel) => void;
 }
 
-const MyProject: React.FC<ContextMenuProps> = ({
+const MySharedProject: React.FC<ContextMenuProps> = ({
   model,
   setShowCad,
   deleteModel,
@@ -68,12 +68,12 @@ const MyProject: React.FC<ContextMenuProps> = ({
           );
           dispatch(selectModel(model));
         }}
-        onContextMenu={handleContextMenu}
+        // onContextMenu={handleContextMenu}
       >
         <GiCubeforce size={75} />
         <span className="absolute bottom-2 font-semibold">{model.name}</span>
       </div>
-      <Menu id={model.components}>
+      {/* <Menu id={model.components}>
         <Item
           onClick={(e) => {
             e.event.preventDefault();
@@ -122,9 +122,9 @@ const MyProject: React.FC<ContextMenuProps> = ({
             <BiSolidTrash size={20} />
           </div>
         </Item>
-      </Menu>
+      </Menu> */}
     </div>
   );
 };
 
-export default MyProject;
+export default MySharedProject;

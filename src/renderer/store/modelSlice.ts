@@ -3,6 +3,7 @@ import { FaunaCadModel } from 'cad-library';
 
 export interface ModelState {
   models: FaunaCadModel[];
+  sharedModels: FaunaCadModel[];
   selectedModel: FaunaCadModel | undefined;
 }
 
@@ -10,6 +11,7 @@ export const ModelSlice = createSlice({
   name: 'modelSlice',
   initialState: {
     models: [],
+    sharedModels: [],
     selectedModel: undefined,
   } as ModelState,
   reducers: {
@@ -27,6 +29,9 @@ export const ModelSlice = createSlice({
     selectModel(state: ModelState, action: PayloadAction<FaunaCadModel>) {
       state.selectedModel = action.payload;
     },
+    setSharedModel(state: ModelState, action: PayloadAction<FaunaCadModel[]>) {
+      state.sharedModels = action.payload
+    },
   },
 });
 
@@ -34,7 +39,8 @@ export const {
   addModel,
   removeModel,
   updateModel,
-  selectModel
+  selectModel,
+  setSharedModel,
 } = ModelSlice.actions;
 
 /* Selettori */
@@ -42,3 +48,5 @@ export const ModelsSelector = (state: { modelSlice: ModelState }) =>
   state.modelSlice.models;
 export const SelectedModelSelector = (state: { modelSlice: ModelState }) =>
   state.modelSlice.selectedModel;
+export const SharedModelsSelector = (state: { modelSlice: ModelState }) =>
+  state.modelSlice.sharedModels;
