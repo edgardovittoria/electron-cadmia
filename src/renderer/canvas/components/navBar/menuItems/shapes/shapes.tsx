@@ -5,13 +5,39 @@ import {
   baseShapes,
   useAddToTheSceneANewShape,
 } from './useAddToTheSceneANewShape';
+import cubeIcon from './style/cube.png';
+import cylinderIcon from './style/cylinder.png';
+import coneIcon from './style/cone.png';
+import sphereIcon from './style/sphere.png';
+import torusIcon from './style/torus.png';
+import { IoCubeOutline } from 'react-icons/io5';
+import { BiCylinder } from 'react-icons/bi';
+import { TbCone, TbSphere } from 'react-icons/tb';
+import { GiRing } from 'react-icons/gi';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
+export const iconForA = (shape: string) => {
+  switch (shape) {
+    case 'Cube':
+      return <IoCubeOutline size={25} />;
+    case 'Cylinder':
+      return <BiCylinder size={25} />;
+    case 'Cone':
+      return <TbCone size={25} />;
+    case 'Sphere':
+      return <TbSphere size={25} />;
+    case 'Torus':
+      return <GiRing size={25} />;
+    default:
+      break;
+  }
+};
+
 export const Shapes: FC = () => {
-  const { addToTheSceneANew, iconForA } = useAddToTheSceneANewShape();
+  const { addToTheSceneANew } = useAddToTheSceneANewShape();
   return (
     <Popover className="relative">
       {({ open }) => (
@@ -42,12 +68,13 @@ export const Shapes: FC = () => {
                       }}
                       key={shape}
                     >
-                      <div className="flex items-center rounded-lg p-2 hover:bg-black hover:text-white hover:cursor-pointer">
+                      <div className="flex items-center gap-2 rounded-lg p-2 hover:bg-black hover:text-white hover:cursor-pointer">
                         {/* <img
                           src={iconForA(shape)}
                           alt={`Add ${shape}`}
                           className="mr-5 w-[15px]"
                         /> */}
+                        {iconForA(shape)}
                         <span className="text-base font-medium">
                           {shape}
                         </span>

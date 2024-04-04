@@ -5,10 +5,9 @@ import {
   ImportActionParamsObject,
   importStateCanvas,
 } from 'cad-library';
-import { s3 } from '../../canvas/components/navBar/menuItems/file/components/s3Config';
-import { setUnit } from '../../canvas/components/statusBar/statusBarSlice';
-import { s3Config } from './s3Config';
 import ReactS3Client from 'react-aws-s3-typescript';
+import { setUnit } from '../canvas/components/statusBar/statusBarSlice';
+import { s3, s3Config } from './s3Config';
 
 export const openModel = (
   bucket: string,
@@ -47,6 +46,14 @@ export const openModel = (
   }
 };
 
+export const uploadFileS3 = async (file: File) => {
+  const s3 = new ReactS3Client(s3Config);
+  try {
+    return await s3.uploadFile(file);
+  } catch (exception) {
+    console.log(exception);
+  }
+};
 export const deleteFileS3 = async (key: string) => {
   const s3Client = new ReactS3Client(s3Config);
   try {
@@ -54,4 +61,4 @@ export const deleteFileS3 = async (key: string) => {
   } catch (exception) {
     console.log(exception);
   }
-}
+};

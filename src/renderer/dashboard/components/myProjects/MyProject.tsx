@@ -1,22 +1,34 @@
-import React from 'react';
+import React, { FC, Fragment, useState } from 'react';
 import { Item, Menu, Separator, useContextMenu } from 'react-contexify';
 import { FaunaCadModel, resetState, useFaunaQuery } from 'cad-library';
 import { ActionCreators } from 'redux-undo';
 import { GiCubeforce } from 'react-icons/gi';
 import { useDispatch } from 'react-redux';
 import { BiSolidRename, BiSolidShare, BiSolidTrash } from 'react-icons/bi';
-import { deleteFileS3, openModel } from '../../aws/crud';
-import { deleteFaunadbModel } from '../../faunaDB/functions';
+import toast from 'react-hot-toast';
+import { Dialog, Transition } from '@headlessui/react/dist';
+import { deleteFileS3, openModel } from '../../../aws/crud';
+import {
+  deleteFaunadbModel,
+  updateModelInFauna,
+} from '../../../faunaDB/functions';
+import { selectModel, updateModel } from '../../../store/modelSlice';
+import RenameModal from './modal/RenameModal';
 
 export interface ContextMenuProps {
   model: FaunaCadModel;
   setShowCad: (v: boolean) => void;
-  deleteModel: (v: FaunaCadModel) => void
+  deleteModel: (v: FaunaCadModel) => void;
 }
 
-const MyProject: React.FC<ContextMenuProps> = ({ model, setShowCad, deleteModel }) => {
+const MyProject: React.FC<ContextMenuProps> = ({
+  model,
+  setShowCad,
+  deleteModel,
+}) => {
   const dispatch = useDispatch();
   const { execQuery } = useFaunaQuery();
+  const [modalRenameShow, setModalRenameShow] = useState<boolean>(false);
   const { show, hideAll } = useContextMenu({
     id: model.components,
   });
@@ -31,9 +43,11 @@ const MyProject: React.FC<ContextMenuProps> = ({ model, setShowCad, deleteModel 
   }
 
   return (
-    <div>
+    <div key={model.id}>
+      {modalRenameShow && (
+        <RenameModal setRenameModalShow={setModalRenameShow} model={model} />
+      )}
       <div
-        key={model.components}
         className="px-10 py-12 relative rounded-xl border border-black flex flex-col items-center hover:bg-black hover:text-white hover:cursor-pointer hover:shadow-2xl"
         onClick={() => {
           dispatch(resetState());
@@ -44,6 +58,7 @@ const MyProject: React.FC<ContextMenuProps> = ({ model, setShowCad, deleteModel 
             dispatch,
             setShowCad,
           );
+          dispatch(selectModel(model));
         }}
         onContextMenu={handleContextMenu}
       >
@@ -52,10 +67,9 @@ const MyProject: React.FC<ContextMenuProps> = ({ model, setShowCad, deleteModel 
       </div>
       <Menu id={model.components}>
         <Item
-          disabled
           onClick={(e) => {
             e.event.preventDefault();
-            console.log('rename');
+            setModalRenameShow(true);
           }}
         >
           <div className="flex w-full flex-row justify-between items-center">

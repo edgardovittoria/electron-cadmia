@@ -6,13 +6,14 @@ import {
   resetState,
   useFaunaQuery,
 } from 'cad-library';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ActionCreators } from 'redux-undo';
 import { AiOutlineAppstoreAdd } from 'react-icons/ai';
 import Navbar from './components/navbar/Navbar';
 import 'react-contexify/ReactContexify.css';
 import MyProject from './components/myProjects/MyProject';
 import boxIcon from '../../../assets/document-graphic.png';
+import { addModel, ModelsSelector, removeModel } from '../store/modelSlice';
 
 export interface DashboardProps {
   showCad: boolean;
@@ -22,17 +23,23 @@ export interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = ({ showCad, setShowCad }) => {
   const { user } = useAuth0();
   const [selectedMenuItem, setSelectedMenuItem] = useState<string>('MP');
-  const [models, setModels] = useState<FaunaCadModel[]>([]);
+  // const [models, setModels] = useState<FaunaCadModel[]>([]);
+  const models = useSelector(ModelsSelector);
+  const dispatch = useDispatch();
   const deleteModel = (model: FaunaCadModel) => {
-    setModels(models.filter((m) => m.id !== model.id));
+    // setModels(models.filter((m) => m.id !== model.id));
+    if (model.id) {
+      dispatch(removeModel(model.id));
+    }
   };
   const { execQuery } = useFaunaQuery();
-  const dispatch = useDispatch();
   useEffect(() => {
     if (user && user.sub) {
       execQuery(getModelsByOwner, user.sub)
         .then((mods) => {
-          setModels(mods);
+          if (models.length === 0) {
+            mods.forEach((m: FaunaCadModel) => dispatch(addModel(m)));
+          }
         })
         .catch((err) => console.log(err));
     }

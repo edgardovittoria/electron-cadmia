@@ -4,7 +4,7 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
 import { createRoot } from 'react-dom/client';
-import { persistor, store } from './store';
+import { persistor, store } from './store/store';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 

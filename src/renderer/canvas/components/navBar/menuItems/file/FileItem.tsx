@@ -15,23 +15,34 @@ import {
   ComponentEntity,
   componentseSelector,
   exportToSTL,
+  FaunaCadModel,
   getNewKeys,
   ImportActionParamsObject,
   ImportCadProjectButton,
   ImportModelFromDBModal,
   importStateCanvas,
   numberOfGeneratedKeySelector,
+  saveNewModel,
   TRANSF_PARAMS_DEFAULTS,
+  useFaunaQuery,
 } from 'cad-library';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAuth0 } from '@auth0/auth0-react';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 import { Vector3 } from 'three';
 import { Dispatch } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
 import { SaveModelWithNameModal } from './components/saveModelWithNameModal';
-import { classNames } from '../../NavBar';
-import { s3 } from './components/s3Config';
-import { setUnit } from '../../../statusBar/statusBarSlice';
+import { setUnit, unitSelector } from '../../../statusBar/statusBarSlice';
+import { s3 } from '../../../../../aws/s3Config';
+import {
+  addModel,
+  SelectedModelSelector,
+  selectModel,
+  updateModel,
+} from '../../../../../store/modelSlice';
+import { deleteFileS3, uploadFileS3 } from '../../../../../aws/crud';
+import { updateModelInFauna } from '../../../../../faunaDB/functions';
 
 interface FileItemProps {}
 
@@ -65,6 +76,10 @@ export const FileItem: React.FC<FileItemProps> = () => {
   const [modalSave, setModalSave] = useState(false);
   const [modalLoad, setModalLoad] = useState(false);
   const { isAuthenticated } = useAuth0();
+  const selectedModel = useSelector(SelectedModelSelector);
+  const canvas = useSelector(canvasStateSelector);
+  const unit = useSelector(unitSelector);
+  const { execQuery } = useFaunaQuery();
 
   const inputRefSTL = useRef(null);
   const onImportSTLClick = () => {
@@ -114,14 +129,9 @@ export const FileItem: React.FC<FileItemProps> = () => {
       <Popover className="relative">
         {({ open }) => (
           <>
-            <Popover.Button
-              className="group inline-flex items-center rounded-md bg-white text-base text-black font-medium p-1 hover:bg-black hover:text-white hover:cursor-pointer"
-            >
+            <Popover.Button className="group inline-flex items-center rounded-md bg-white text-base text-black font-medium p-1 hover:bg-black hover:text-white hover:cursor-pointer">
               <span>File</span>
-              <ChevronDownIcon
-                className="ml-2 h-5 w-5"
-                aria-hidden="true"
-              />
+              <ChevronDownIcon className="ml-2 h-5 w-5" aria-hidden="true" />
             </Popover.Button>
 
             <Transition
@@ -139,13 +149,50 @@ export const FileItem: React.FC<FileItemProps> = () => {
                     {isAuthenticated ? (
                       <span
                         className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
-                        onClick={() => setModalSave(true)}
+                        onClick={() => {
+                          console.log(selectedModel);
+                          deleteFileS3(
+                            selectedModel?.components as string,
+                          ).then(() => {
+                            const model = JSON.stringify({
+                              components: canvas.components,
+                              unit,
+                            });
+                            const blobFile = new Blob([model]);
+                            const modelFile = new File(
+                              [blobFile],
+                              `${selectedModel?.name}.json`,
+                              {
+                                type: 'application/json',
+                              },
+                            );
+
+                            uploadFileS3(modelFile).then((res) => {
+                              if (res) {
+                                // modificare documento fauna con il nuovo riferimento a oggetto s3
+                                const newModel: FaunaCadModel = {
+                                  ...selectedModel,
+                                  components: res.key,
+                                };
+                                execQuery(updateModelInFauna, newModel)
+                                  .then(() => {
+                                    dispatch(updateModel(newModel));
+                                    toast.success('Model updated!');
+                                  })
+                                  .catch((err) => {
+                                    console.log(err);
+                                    toast.error('Model not updated!');
+                                  });
+                              }
+                            });
+                          });
+                        }}
                       >
                         <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
                           <div className="flex">
                             <CloudArrowDownIcon className="w-[20px] mr-4" />
                             <p className="text-base font-medium">
-                              Save To DB
+                              Save Changes To Model
                             </p>
                           </div>
                           {/* <p className="text-base font-medium text-gray-300">Ctrl + S</p> */}
@@ -157,7 +204,33 @@ export const FileItem: React.FC<FileItemProps> = () => {
                           <div className="flex">
                             <CloudArrowDownIcon className="w-[20px] mr-4 text-gray-300" />
                             <p className="text-base font-medium text-gray-300">
-                              Save To DB
+                              Save As New Model
+                            </p>
+                          </div>
+                          {/* <p className="text-base font-medium text-gray-300">Ctrl + S</p> */}
+                        </div>
+                      </span>
+                    )}
+                    {isAuthenticated ? (
+                      <span
+                        className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
+                        onClick={() => setModalSave(true)}
+                      >
+                        <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
+                          <div className="flex">
+                            <CloudArrowDownIcon className="w-[20px] mr-4" />
+                            <p className="text-base font-medium">Save To DB</p>
+                          </div>
+                          {/* <p className="text-base font-medium text-gray-300">Ctrl + S</p> */}
+                        </div>
+                      </span>
+                    ) : (
+                      <span className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white">
+                        <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
+                          <div className="flex">
+                            <CloudArrowDownIcon className="w-[20px] mr-4 text-gray-300" />
+                            <p className="text-base font-medium text-gray-300">
+                              Save As New Model
                             </p>
                           </div>
                           {/* <p className="text-base font-medium text-gray-300">Ctrl + S</p> */}
