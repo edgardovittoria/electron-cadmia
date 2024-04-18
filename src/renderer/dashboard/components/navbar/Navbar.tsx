@@ -77,7 +77,7 @@ const Navbar: React.FC<NavbarProps> = ({
         >
           <div className="flex flex-row justify-between items-center gap-2">
             <IoMdLogIn size={25} />
-            <span className="text-xl font-semibold">Login</span>
+            <span className="text-xl font-semibold">Login/Register</span>
           </div>
         </div>
       )}

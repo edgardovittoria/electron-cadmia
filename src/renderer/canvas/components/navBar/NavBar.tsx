@@ -22,8 +22,8 @@ export const Navbar: React.FC<NavbarProps> = ({ setShowCad }) => {
 
   return (
     <Popover className="relative bg-white h-[4vh]">
-      <div className="mx-auto w-full px-6">
-        <div className="flex items-center justify-between border-b-2 border-gray-100 py-1">
+      <div className="mx-auto w-full h-full px-6">
+        <div className="flex items-center justify-between h-full">
           <div className="flex justify-start w-0 flex-1 items-center gap-5">
             <span className="text-2xl font-semibold">CADmIA</span>
           </div>

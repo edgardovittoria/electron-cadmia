@@ -1,5 +1,5 @@
 {
-  "description": "A foundation for scalable desktop apps",
+  "description": "CAD app",
   "keywords": [
     "electron",
     "boilerplate",
@@ -263,6 +263,10 @@
         ]
       }
     },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false
+    },
     "linux": {
       "target": {
         "target": "AppImage",
@@ -283,8 +287,8 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "electron-react-boilerplate",
-      "repo": "electron-react-boilerplate"
+      "owner": "cadmia",
+      "repo": "electron-cadmia"
     }
   },
   "collective": {

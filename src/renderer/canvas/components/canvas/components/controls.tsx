@@ -15,7 +15,7 @@ export const Controls: FC<{
     const dispatch = useDispatch();
     const activeTransformation = useSelector(activeTransformationSelector)
     // const orbitTarget = useSelector(orbitTargetSelector)
-  
+
     useEffect(() => {
       if (transformation.current) {
         const controls: Object3DNode<any, any> = transformation.current;
@@ -24,7 +24,7 @@ export const Controls: FC<{
           controls.removeEventListener("dragging-changed", onChangeHandler);
       }
     });
-  
+
     function onChangeHandler(event: any) {
       if (!event.value && transformation.current) {
         const controls: Object3DNode<any, any> = transformation.current;
@@ -68,10 +68,10 @@ export const Controls: FC<{
           makeDefault
           // target={(orbitTarget) ? new THREE.Vector3(orbitTarget?.position[0], orbitTarget?.position[1], orbitTarget?.position[2]): new THREE.Vector3(0,0,0)}
         />
-        <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
+        <GizmoHelper alignment="bottom-left">
           <GizmoViewport
             axisColors={["red", "green", "blue"]}
-            labelColor="black"
+            labelColor="white"
           />
         </GizmoHelper>
       </>
