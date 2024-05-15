@@ -15,12 +15,17 @@ export const useAddToTheSceneANewShape = () => {
   const dispatch = useDispatch();
   const numberOfGeneratedKey = useSelector(numberOfGeneratedKeySelector);
   const defaultNamedNew = (entity: ComponentEntity) => {
-    entity.name = `${entity.name}_${entity.keyComponent.toString()}`;
+    if(entity.name !== 'CUBE'){
+      entity.name = `${entity.name}_${entity.keyComponent.toString()}`;
+    }
+    else{
+      entity.name = `BRICK_${entity.keyComponent.toString()}`;
+    }
     return entity;
   };
   const addToTheSceneANew = (shape: string) => {
     switch (shape) {
-      case 'Cube':
+      case 'Brick':
         dispatch(
           addComponent(
             defaultNamedNew(getDefaultCube(numberOfGeneratedKey, dispatch)),
@@ -64,7 +69,7 @@ export const useAddToTheSceneANewShape = () => {
 };
 
 export const baseShapes: string[] = [
-  'Cube',
+  'Brick',
   'Sphere',
   'Cylinder',
   'Torus',

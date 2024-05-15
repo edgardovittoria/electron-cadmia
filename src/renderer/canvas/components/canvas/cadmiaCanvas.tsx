@@ -29,7 +29,7 @@ export const CadmiaCanvas: React.FC<CadmiaCanvasProps> = () => {
         {({ store }) => (
           <Canvas
             className="w-full h-full"
-            style={{ backgroundColor: 'whitesmoke' }}
+            style={{ backgroundColor: 'gray' }}
             camera={{
               position: [0, 50, 0],
               fov: 20,

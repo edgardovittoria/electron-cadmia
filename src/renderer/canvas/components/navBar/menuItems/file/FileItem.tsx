@@ -150,7 +150,6 @@ export const FileItem: React.FC<FileItemProps> = () => {
                       <span
                         className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
                         onClick={() => {
-                          console.log(selectedModel);
                           deleteFileS3(
                             selectedModel?.components as string,
                           ).then(() => {
@@ -168,7 +167,7 @@ export const FileItem: React.FC<FileItemProps> = () => {
                             );
 
                             uploadFileS3(modelFile).then((res) => {
-                              if (res) {
+                              if (res && selectedModel) {
                                 // modificare documento fauna con il nuovo riferimento a oggetto s3
                                 const newModel: FaunaCadModel = {
                                   ...selectedModel,
@@ -192,7 +191,7 @@ export const FileItem: React.FC<FileItemProps> = () => {
                           <div className="flex">
                             <CloudArrowDownIcon className="w-[20px] mr-4" />
                             <p className="text-base font-medium">
-                              Save Changes To Model
+                              Save
                             </p>
                           </div>
                           {/* <p className="text-base font-medium text-gray-300">Ctrl + S</p> */}
@@ -219,7 +218,7 @@ export const FileItem: React.FC<FileItemProps> = () => {
                         <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
                           <div className="flex">
                             <CloudArrowDownIcon className="w-[20px] mr-4" />
-                            <p className="text-base font-medium">Save To DB</p>
+                            <p className="text-base font-medium">Save As...</p>
                           </div>
                           {/* <p className="text-base font-medium text-gray-300">Ctrl + S</p> */}
                         </div>
@@ -246,7 +245,7 @@ export const FileItem: React.FC<FileItemProps> = () => {
                           <div className="flex">
                             <CloudArrowUpIcon className="w-[20px] mr-4" />
                             <p className="text-base font-medium">
-                              Load From DB
+                              Load
                             </p>
                           </div>
                           {/* <p className="text-base font-medium text-gray-300">Ctrl + S</p> */}

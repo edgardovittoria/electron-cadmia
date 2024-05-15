@@ -1,15 +1,10 @@
-import React, { FC, Fragment } from 'react';
+import { FC, Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import {
   baseShapes,
   useAddToTheSceneANewShape,
 } from './useAddToTheSceneANewShape';
-import cubeIcon from './style/cube.png';
-import cylinderIcon from './style/cylinder.png';
-import coneIcon from './style/cone.png';
-import sphereIcon from './style/sphere.png';
-import torusIcon from './style/torus.png';
 import { IoCubeOutline } from 'react-icons/io5';
 import { BiCylinder } from 'react-icons/bi';
 import { TbCone, TbSphere } from 'react-icons/tb';
@@ -21,7 +16,7 @@ function classNames(...classes: string[]) {
 
 export const iconForA = (shape: string) => {
   switch (shape) {
-    case 'Cube':
+    case 'Brick':
       return <IoCubeOutline size={25} />;
     case 'Cylinder':
       return <BiCylinder size={25} />;
