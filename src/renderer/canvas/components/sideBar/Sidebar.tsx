@@ -23,30 +23,14 @@ export const Sidebar: React.FC<SidebarProps> = () => {
   const canvasComponents = useSelector(componentseSelector);
   const selectedComponent = useSelector(selectedComponentSelector);
   const sideBarVisibility = useSelector(sidebarVisibilitySelector);
-  const dispatch = useDispatch();
   const { sideBarOptsBasedOnModality } = useCadmiaModalityManager();
 
   return (
     <>
       {sideBarVisibility ? (
         <div
-          className={`absolute bottom-0 left-0 w-[18vw] bg-white p-[20px] text-white text-center
-                ${
-            sideBarVisibility
-              ? 'translate-x-0 transition '
-              : 'translate-x-full transition'
-          }
-            `}
+          className={`absolute bottom-0 z-10 left-0 w-[18vw] bg-white px-[20px] pt-[20px] pb-[50px] text-white text-center translate-y-0 transition`}
         >
-          <div className='flex items-center mb-[10px]'>
-            <TiArrowLeft
-              className='text-black w-6 h-6 hover:cursor-pointer'
-              onClick={() => dispatch(closeSidebar())}
-            />
-            <h2 className='text-xl text-black text-sm mx-auto font-bold'>
-              Object Details
-            </h2>
-          </div>
           <div className='h-full max-h-[800px] overflow-scroll'>
             <Outliner
               components={canvasComponents}
@@ -114,11 +98,7 @@ export const Sidebar: React.FC<SidebarProps> = () => {
           </div>
         </div>
       ) : (
-
-        <div className='absolute bottom-0 font-semibold left-0 text-black bg-white border border-b-0 border-black rounded-r-xl px-3 w-[140px] hover:cursor-pointer hover:bg-black hover:text-white'
-             onClick={() => dispatch(openSidebar())}
-        >Object Details</div>
-
+        <></>
       )}
     </>
   );

@@ -10,6 +10,7 @@ import { ShapesToolbar } from './components/navBar/menuItems/shapes/shapeToolbar
 import { Sidebar } from './components/sideBar/Sidebar';
 import { StatusBar } from './components/statusBar/statusBar';
 import { useCadmiaModalityManager } from './components/cadmiaModality/useCadmiaModalityManager';
+import Labels from './components/labels/Labels';
 
 export interface CanvasProps {
   setShowCad: (v: boolean) => void;
@@ -29,6 +30,7 @@ const Canvas: React.FC<CanvasProps> = ({ setShowCad }) => {
         <BinaryOpsToolbar />
         <MiscToolbar />
         <ShapesToolbar />
+        <Labels/>
         <Sidebar />
       </div>
       <StatusBar />
