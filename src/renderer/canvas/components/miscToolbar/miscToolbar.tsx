@@ -64,6 +64,7 @@ export const MiscToolbar: React.FC<MiscToolbarProps> = () => {
                 const newKey = getNewKeys(numberOfGeneratedKey, dispatch)[0];
                 const clonedEntity = {
                   ...selectedComponent,
+                  name: selectedComponent.name+newKey.toString(),
                   keyComponent: newKey,
                 } as ComponentEntity;
                 dispatch(addComponent(clonedEntity));
