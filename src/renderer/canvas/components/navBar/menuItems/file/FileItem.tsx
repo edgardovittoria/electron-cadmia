@@ -43,6 +43,12 @@ import {
 } from '../../../../../store/modelSlice';
 import { deleteFileS3, uploadFileS3 } from '../../../../../aws/crud';
 import { updateModelInFauna } from '../../../../../faunaDB/functions';
+import {
+  navbarDropdownBoxStyle,
+  navbarDropdownItemStyle,
+  navbarDropdownPadding, navbarDropdownStyle,
+  navbarShortcutStyle
+} from '../../../../../config/styles';
 
 interface FileItemProps {}
 
@@ -143,12 +149,12 @@ export const FileItem: React.FC<FileItemProps> = () => {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
-                <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                  <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+              <Popover.Panel className={navbarDropdownStyle}>
+                <div className={navbarDropdownBoxStyle}>
+                  <div className={navbarDropdownPadding}>
                     {isAuthenticated ? (
                       <span
-                        className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
+                        className={navbarDropdownItemStyle}
                         onClick={() => {
                           deleteFileS3(
                             selectedModel?.components as string,
@@ -187,7 +193,7 @@ export const FileItem: React.FC<FileItemProps> = () => {
                           });
                         }}
                       >
-                        <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
+                        <div className="flex justify-between w-full hover:cursor-pointer">
                           <div className="flex">
                             <CloudArrowDownIcon className="w-[20px] mr-4" />
                             <p className="text-base font-medium">
@@ -198,8 +204,8 @@ export const FileItem: React.FC<FileItemProps> = () => {
                         </div>
                       </span>
                     ) : (
-                      <span className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white">
-                        <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
+                      <span className={navbarDropdownItemStyle}>
+                        <div className="flex justify-between w-full hover:cursor-pointer">
                           <div className="flex">
                             <CloudArrowDownIcon className="w-[20px] mr-4 text-gray-300" />
                             <p className="text-base font-medium text-gray-300">
@@ -212,10 +218,10 @@ export const FileItem: React.FC<FileItemProps> = () => {
                     )}
                     {isAuthenticated ? (
                       <span
-                        className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
+                        className={navbarDropdownItemStyle}
                         onClick={() => setModalSave(true)}
                       >
-                        <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
+                        <div className="flex justify-between w-full hover:cursor-pointer">
                           <div className="flex">
                             <CloudArrowDownIcon className="w-[20px] mr-4" />
                             <p className="text-base font-medium">Save As...</p>
@@ -225,7 +231,7 @@ export const FileItem: React.FC<FileItemProps> = () => {
                       </span>
                     ) : (
                       <span className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white">
-                        <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
+                        <div className="flex justify-between w-full hover:cursor-pointer">
                           <div className="flex">
                             <CloudArrowDownIcon className="w-[20px] mr-4 text-gray-300" />
                             <p className="text-base font-medium text-gray-300">
@@ -238,10 +244,10 @@ export const FileItem: React.FC<FileItemProps> = () => {
                     )}
                     {isAuthenticated ? (
                       <span
-                        className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
+                        className={navbarDropdownItemStyle}
                         onClick={() => setModalLoad(true)}
                       >
-                        <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
+                        <div className="flex justify-between w-full hover:cursor-pointer">
                           <div className="flex">
                             <CloudArrowUpIcon className="w-[20px] mr-4" />
                             <p className="text-base font-medium">
@@ -252,8 +258,8 @@ export const FileItem: React.FC<FileItemProps> = () => {
                         </div>
                       </span>
                     ) : (
-                      <span className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white">
-                        <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
+                      <span className={navbarDropdownItemStyle}>
+                        <div className="flex justify-between w-full hover:cursor-pointer">
                           <div className="flex">
                             <CloudArrowUpIcon className="w-[20px] mr-4 text-gray-300" />
                             <p className="text-base font-medium text-gray-300">
@@ -265,11 +271,11 @@ export const FileItem: React.FC<FileItemProps> = () => {
                       </span>
                     )}
                     <ImportCadProjectButton
-                      className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
+                      className={navbarDropdownItemStyle}
                       actionParams={{} as ImportActionParamsObject}
                       importAction={importStateCanvas}
                     >
-                      <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
+                      <div className="flex justify-between w-full hover:cursor-pointer">
                         <div className="flex">
                           <ArrowDownTrayIcon className="w-[20px] mr-4" />
                           <p className="text-base font-medium">
@@ -280,10 +286,10 @@ export const FileItem: React.FC<FileItemProps> = () => {
                       </div>
                     </ImportCadProjectButton>
                     <div
-                      className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
+                      className={navbarDropdownItemStyle}
                       onClick={onImportSTLClick}
                     >
-                      <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
+                      <div className="flex justify-between w-full hover:cursor-pointer">
                         <div className="flex">
                           <ArrowDownTrayIcon className="w-[20px] mr-4" />
                           <p className="text-base font-medium">
@@ -309,37 +315,37 @@ export const FileItem: React.FC<FileItemProps> = () => {
                       />
                     </div>
                     <span
-                      className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
+                      className={navbarDropdownItemStyle}
                       onClick={() => {
                         exportJSONProject(canvasState);
                       }}
                     >
-                      <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
+                      <div className="flex justify-between w-full hover:cursor-pointer">
                         <div className="flex">
                           <ArrowUpTrayIcon className="w-[20px] mr-4" />
                           <p className="text-base font-medium">
                             Export Project
                           </p>
                         </div>
-                        <p className="text-base font-medium text-gray-300">
+                        <p className={navbarShortcutStyle}>
                           Ctrl + S
                         </p>
                       </div>
                     </span>
                     <span
-                      className="-m-3 flex items-start rounded-lg p-2 hover:bg-black hover:text-white"
+                      className={navbarDropdownItemStyle}
                       onClick={() => {
                         exportToSTLFormat(entities);
                       }}
                     >
-                      <div className="ml-4 flex justify-between w-full hover:cursor-pointer">
+                      <div className="flex justify-between w-full hover:cursor-pointer">
                         <div className="flex">
                           <ArrowUpTrayIcon className="w-[20px] mr-4" />
                           <p className="text-base font-medium">
                             Export STL Format
                           </p>
                         </div>
-                        <p className="text-base font-medium text-gray-300">
+                        <p className={navbarShortcutStyle}>
                           Ctrl + Alt + S
                         </p>
                       </div>

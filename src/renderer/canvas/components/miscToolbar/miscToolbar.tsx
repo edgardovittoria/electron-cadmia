@@ -18,6 +18,7 @@ import {
   multipleSelectionEntitiesKeysSelector,
 } from './miscToolbarSlice';
 import { useCadmiaModalityManager } from '../cadmiaModality/useCadmiaModalityManager';
+import { toolbarIconsHeight, toolbarIconsWidth, toolbarsHintStyle } from '../../../config/styles';
 
 interface MiscToolbarProps {}
 
@@ -56,8 +57,8 @@ export const MiscToolbar: React.FC<MiscToolbarProps> = () => {
   return (
     <>
       {miscToolbarVisible && (
-        <div className="absolute left-[450px] top-[10px] w-[150px] text-center shadow grid grid-cols-3">
-          <div className="relative flex flex-col items-center justify-center h-[50px] w-[50px] p-1 group bg-white">
+        <div className="absolute left-[285px] top-[10px] w-[90px] text-center shadow grid grid-cols-3">
+          <div className={`relative flex flex-col items-center justify-center ${toolbarIconsHeight} ${toolbarIconsWidth} p-1 group bg-white`}>
             <DocumentDuplicateIcon
               className="w-8 h-8"
               onClick={() => {
@@ -70,14 +71,14 @@ export const MiscToolbar: React.FC<MiscToolbarProps> = () => {
                 dispatch(addComponent(clonedEntity));
               }}
             />
-            <div className="absolute left-10 bottom-0 flex flex-col items-center hidden mb-10 group-hover:flex">
+            <div className={toolbarsHintStyle}>
               <span className="relative z-10 p-2 leading-none text-white whitespace-no-wrap bg-black shadow-lg rounded-md">
                 CLONE
               </span>
             </div>
           </div>
           <div
-            className={`relative flex flex-col items-center justify-center h-[50px] w-[50px] p-1 group ${miscToolbarOpsBasedOnModality.iconStyles.singleSelectionBackground}`}
+            className={`relative flex flex-col items-center justify-center ${toolbarIconsHeight} ${toolbarIconsWidth} p-1 group ${miscToolbarOpsBasedOnModality.iconStyles.singleSelectionBackground}`}
             onClick={() =>
               dispatch(setModality('NormalSelection' as CadmiaModality))
             }
@@ -87,14 +88,14 @@ export const MiscToolbar: React.FC<MiscToolbarProps> = () => {
               alt="Single selection"
               className="w-8 h-8"
             />
-            <div className="absolute left-10 bottom-0 flex flex-col items-center hidden mb-10 group-hover:flex">
+            <div className={toolbarsHintStyle}>
               <span className="relative z-10 p-2 leading-none text-white whitespace-no-wrap bg-black shadow-lg rounded-md">
                 SINGLE SELECTION
               </span>
             </div>
           </div>
           <div
-            className={`relative flex flex-col items-center justify-center h-[50px] w-[50px] p-1 group ${miscToolbarOpsBasedOnModality.iconStyles.multipleSelectionBackground}`}
+            className={`relative flex flex-col items-center justify-center ${toolbarIconsHeight} ${toolbarIconsWidth} p-1 group ${miscToolbarOpsBasedOnModality.iconStyles.multipleSelectionBackground}`}
             onClick={() =>
               dispatch(setModality('MultipleSelection' as CadmiaModality))
             }
@@ -104,7 +105,7 @@ export const MiscToolbar: React.FC<MiscToolbarProps> = () => {
               alt="Multiple selection"
               className="w-8 h-8"
             />
-            <div className="absolute left-10 bottom-0 flex flex-col items-center hidden mb-10 group-hover:flex">
+            <div className={toolbarsHintStyle}>
               <span className="relative z-10 p-2 leading-none text-white whitespace-no-wrap bg-black shadow-lg rounded-md">
                 MULTIPLE SELECTION
               </span>

@@ -8,7 +8,7 @@ export type SidebarState = {
 export const SidebarSlice = createSlice({
   name: 'sidebar',
   initialState:{
-    sidebarVisible: false,
+    sidebarVisible: true,
     meshesWithBordersVisible: []
   } as SidebarState,
   reducers: {

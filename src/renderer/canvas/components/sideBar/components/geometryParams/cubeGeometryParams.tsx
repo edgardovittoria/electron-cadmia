@@ -9,13 +9,13 @@ export const CubeGeometryParams: FC<GeometryParamsGeneralProps> = ({entity, upda
         <>
             <div className="flex row">
               <div key="xmin" className="flex">
-                  <span className="text-black w-[40%] text-left text-xs">Xmin</span>
+                  <span className="text-black w-[40%] text-left text-[10px]">Xmin</span>
                   <div className="flex mb-[5px]">
                       <input key="xmin"
                             type="number"
                             max={entity.transformationParams.position[0] + (entity.geometryAttributes as CubeGeometryAttributes).width/2}
                             step="0.1"
-                            className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-xs"
+                            className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-[10px]"
                             autoComplete="off"
                             value={entity.transformationParams.position[0] - (entity.geometryAttributes as CubeGeometryAttributes).width/2}
                             onChange={(e) => {
@@ -32,13 +32,13 @@ export const CubeGeometryParams: FC<GeometryParamsGeneralProps> = ({entity, upda
                   </div>
               </div>
               <div key="xmax" className="flex">
-                <span className="text-black w-[40%] text-left text-xs">Xmax</span>
+                <span className="text-black w-[40%] text-left text-[10px]">Xmax</span>
                 <div className="flex mb-[5px]">
                     <input key="xmax"
                            type="number"
                            min={entity.transformationParams.position[0] - (entity.geometryAttributes as CubeGeometryAttributes).width/2}
                            step="0.1"
-                           className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-xs"
+                           className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-[10px]"
                            autoComplete="off"
                            value={entity.transformationParams.position[0] + (entity.geometryAttributes as CubeGeometryAttributes).width/2}
                            onChange={(e) => {
@@ -57,13 +57,13 @@ export const CubeGeometryParams: FC<GeometryParamsGeneralProps> = ({entity, upda
             </div>
             <div className="flex row">
               <div key="ymin" className="flex">
-                  <span className="text-black w-[40%] text-left text-xs">Ymin</span>
+                  <span className="text-black w-[40%] text-left text-[10px]">Ymin</span>
                   <div className="flex mb-[5px]">
                       <input key="ymin"
                             type="number"
                             step="0.1"
                             max={entity.transformationParams.position[1] + (entity.geometryAttributes as CubeGeometryAttributes).height/2}
-                            className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-xs"
+                            className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-[10px]"
                             autoComplete="off"
                             value={entity.transformationParams.position[1] - (entity.geometryAttributes as CubeGeometryAttributes).height/2}
                             onChange={(e) => {
@@ -80,13 +80,13 @@ export const CubeGeometryParams: FC<GeometryParamsGeneralProps> = ({entity, upda
                   </div>
               </div>
               <div key="ymax" className="flex">
-                <span className="text-black w-[40%] text-left text-xs">Ymax</span>
+                <span className="text-black w-[40%] text-left text-[10px]">Ymax</span>
                 <div className="flex mb-[5px]">
                     <input key="ymax"
                            type="number"
                            min={entity.transformationParams.position[1] - (entity.geometryAttributes as CubeGeometryAttributes).height/2}
                            step="0.1"
-                           className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-xs"
+                           className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-[10px]"
                            autoComplete="off"
                            value={entity.transformationParams.position[1] + (entity.geometryAttributes as CubeGeometryAttributes).height/2}
                            onChange={(e) => {
@@ -105,13 +105,13 @@ export const CubeGeometryParams: FC<GeometryParamsGeneralProps> = ({entity, upda
             </div>
             <div className="flex row">
               <div key="zmin" className="flex">
-                  <span className="text-black w-[40%] text-left text-xs">Zmin</span>
+                  <span className="text-black w-[40%] text-left text-[10px]">Zmin</span>
                   <div className="flex mb-[5px]">
                       <input key="zmin"
                             type="number"
                             max={entity.transformationParams.position[2] + (entity.geometryAttributes as CubeGeometryAttributes).depth/2}
                             step="0.1"
-                            className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-xs"
+                            className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-[10px]"
                             autoComplete="off"
                             value={entity.transformationParams.position[2] - (entity.geometryAttributes as CubeGeometryAttributes).depth/2}
                             onChange={(e) => {
@@ -129,13 +129,13 @@ export const CubeGeometryParams: FC<GeometryParamsGeneralProps> = ({entity, upda
                   </div>
               </div>
               <div key="zmax" className="flex">
-                <span className="text-black w-[40%] text-left text-xs">Zmax</span>
+                <span className="text-black w-[40%] text-left text-[10px]">Zmax</span>
                 <div className="flex mb-[5px]">
                     <input key="zmax"
                            type="number"
                            min={entity.transformationParams.position[2] - (entity.geometryAttributes as CubeGeometryAttributes).depth/2}
                            step="0.1"
-                           className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-xs"
+                           className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-[10px]"
                            autoComplete="off"
                            value={entity.transformationParams.position[2] + (entity.geometryAttributes as CubeGeometryAttributes).depth/2}
                            onChange={(e) => {
@@ -153,13 +153,13 @@ export const CubeGeometryParams: FC<GeometryParamsGeneralProps> = ({entity, upda
                 </div>
               </div>
             </div>
-            <div key="width" className="flex">
-                <span className="text-black w-[40%] text-left text-xs">width</span>
+            {/* <div key="width" className="flex">
+                <span className="text-black w-[40%] text-left text-[10px]">width</span>
                 <div className="flex mb-[5px]">
                     <input key="width"
                            type="number"
                            step="0.1"
-                           className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-xs"
+                           className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-[10px]"
                            autoComplete="off"
                            value={(entity.geometryAttributes as CubeGeometryAttributes).width}
                            onChange={(e) => updateParams({
@@ -170,12 +170,12 @@ export const CubeGeometryParams: FC<GeometryParamsGeneralProps> = ({entity, upda
                 </div>
             </div>
             <div key="heigth" className="flex">
-                <span className="text-black w-[40%] text-left text-xs">heigth</span>
+                <span className="text-black w-[40%] text-left text-[10px]">heigth</span>
                 <div className="flex mb-[5px]">
                     <input key="height"
                            type="number"
                            step="0.1"
-                           className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-xs"
+                           className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-[10px]"
                            autoComplete="off"
                            value={(entity.geometryAttributes as CubeGeometryAttributes).height}
                            onChange={(e) => updateParams({
@@ -186,12 +186,12 @@ export const CubeGeometryParams: FC<GeometryParamsGeneralProps> = ({entity, upda
                 </div>
             </div>
             <div key="depth" className="flex">
-                <span className="text-black w-[40%] text-left text-xs">depth</span>
+                <span className="text-black w-[40%] text-left text-[10px]">depth</span>
                     <div className="flex mb-[5px]">
                         <input key="depth"
                                type="number"
                                step="0.1"
-                               className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-xs"
+                               className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-[10px]"
                                autoComplete="off"
                                value={(entity.geometryAttributes as CubeGeometryAttributes).depth}
                                onChange={(e) => updateParams({
@@ -200,14 +200,14 @@ export const CubeGeometryParams: FC<GeometryParamsGeneralProps> = ({entity, upda
                                } as CubeGeometryAttributes)}
                         />
                     </div>
-            </div>
+            </div> */}
             <div key="width_segments" className="flex">
-                <span className="text-black w-[40%] text-left text-xs">width segments</span>
+                <span className="text-black w-[40%] text-left text-[10px]">width segments</span>
                     <div className="flex mb-[5px]">
                         <input key="width_segments"
                                type="number"
                                step="1"
-                               className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-xs"
+                               className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-[10px]"
                                autoComplete="off"
                                value={(entity.geometryAttributes as CubeGeometryAttributes).widthSegments}
                                onChange={(e) => updateParams({
@@ -218,12 +218,12 @@ export const CubeGeometryParams: FC<GeometryParamsGeneralProps> = ({entity, upda
                     </div>
             </div>
             <div key="heigth_segments" className="flex">
-                <span className="text-black w-[40%] text-left text-xs">heigth segments</span>
+                <span className="text-black w-[40%] text-left text-[10px]">heigth segments</span>
                     <div className="flex mb-[5px]">
                         <input key="height_segments"
                                type="number"
                                step="1"
-                               className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-xs"
+                               className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-[10px]"
                                autoComplete="off"
                                value={(entity.geometryAttributes as CubeGeometryAttributes).heigthSegments}
                                onChange={(e) => updateParams({
@@ -234,12 +234,12 @@ export const CubeGeometryParams: FC<GeometryParamsGeneralProps> = ({entity, upda
                     </div>
             </div>
             <div key="depth_segments" className="flex">
-                <span className="text-black w-[40%] text-left text-xs">depth segments</span>
+                <span className="text-black w-[40%] text-left text-[10px]">depth segments</span>
                     <div className="flex mb-[5px]">
                         <input key="depth_segments"
                                type="number"
                                step="1"
-                               className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-xs"
+                               className="border border-black rounded shadow px-1 w-[50%] text-black text-left text-[10px]"
                                autoComplete="off"
                                value={(entity.geometryAttributes as CubeGeometryAttributes).depthSegments}
                                onChange={(e) => updateParams({

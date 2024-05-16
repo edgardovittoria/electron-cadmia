@@ -19,7 +19,7 @@ const Canvas: React.FC<CanvasProps> = ({ setShowCad }) => {
   const { useBaseOpactityBasedOnModality } = useCadmiaModalityManager();
   useBaseOpactityBasedOnModality();
   return (
-    <div className="m-0 h-full">
+    <div className="m-0 h-[100vh]">
       <SetUserInfo />
       <Navbar setShowCad={setShowCad} />
       <KeyboardEventMapper />

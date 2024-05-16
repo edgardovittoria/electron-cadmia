@@ -26,6 +26,7 @@ import {
 import { Dispatch } from "@reduxjs/toolkit";
 import { CheckIcon, XCircleIcon } from "@heroicons/react/20/solid";
 import { setModality } from "../cadmiaModality/cadmiaModalitySlice";
+import { toolbarIconsHeight, toolbarIconsWidth, toolbarsHintStyle } from '../../../config/styles';
 
 interface BinaryOpsToolbarProps {
 }
@@ -120,8 +121,8 @@ export const BinaryOpsToolbar: React.FC<BinaryOpsToolbarProps> = () => {
     return (
         <>
             {binaryOperationsToolbarVisible &&
-                <div className="absolute left-[180px] top-[10px] w-[250px] text-center shadow grid grid-cols-5">
-                    <div className={`relative flex flex-col items-center justify-center h-[50px] w-[50px] p-1 group bg-white hover:bg-gray-300
+                <div className="absolute left-[120px] top-[10px] w-[150px] text-center shadow grid grid-cols-5">
+                    <div className={`relative flex flex-col items-center justify-center ${toolbarIconsHeight} ${toolbarIconsWidth} p-1 group bg-white hover:bg-gray-300
              ${binaryOp === "UNION" ? 'bg-gray-400' : 'bg-white'}
             `}
                         onClick={() => {
@@ -130,11 +131,11 @@ export const BinaryOpsToolbar: React.FC<BinaryOpsToolbarProps> = () => {
                         }}
                     >
                         <img src={unionIcon} alt="Union operation" />
-                        <div className="absolute left-10 bottom-0 flex flex-col items-center hidden mb-10 group-hover:flex">
+                        <div className={toolbarsHintStyle}>
                             <span className="relative z-10 p-2 leading-none text-white whitespace-no-wrap bg-black shadow-lg rounded-md">UNION</span>
                         </div>
                     </div>
-                    <div className={`relative flex flex-col items-center justify-center h-[50px] w-[50px] p-1 group bg-white hover:bg-gray-300
+                    <div className={`relative flex flex-col items-center justify-center ${toolbarIconsHeight} ${toolbarIconsWidth}] p-1 group bg-white hover:bg-gray-300
              ${binaryOp === "INTERSECTION" ? 'bg-gray-300' : 'bg-white'}
             `}
                         onClick={() => {
@@ -143,11 +144,11 @@ export const BinaryOpsToolbar: React.FC<BinaryOpsToolbarProps> = () => {
                         }}
                     >
                         <img src={intersectionIcon} alt="Intersection operation" />
-                        <div className="absolute left-10 bottom-0 flex flex-col items-center hidden mb-10 group-hover:flex">
+                        <div className={toolbarsHintStyle}>
                             <span className="relative z-10 p-2 leading-none text-white whitespace-no-wrap bg-black shadow-lg rounded-md">INTERSECTION</span>
                         </div>
                     </div>
-                    <div className={`relative flex flex-col items-center justify-center h-[50px] w-[50px] p-1 group bg-white hover:bg-gray-300
+                    <div className={`relative flex flex-col items-center justify-center ${toolbarIconsHeight} ${toolbarIconsWidth}] p-1 group bg-white hover:bg-gray-300
              ${binaryOp === "SUBTRACTION" ? 'bg-gray-300' : 'bg-white'}
             `}
                         onClick={() => {
@@ -156,12 +157,12 @@ export const BinaryOpsToolbar: React.FC<BinaryOpsToolbarProps> = () => {
                         }}
                     >
                         <img src={subtractionIcon} alt="Subtraction operation" />
-                        <div className="absolute left-10 bottom-0 flex flex-col items-center hidden mb-10 group-hover:flex">
+                        <div className={toolbarsHintStyle}>
                             <span className="relative z-10 p-2 leading-none text-white whitespace-no-wrap bg-black shadow-lg rounded-md">SUBTRACTION</span>
                         </div>
                     </div>
                     <div
-                        className={`relative flex flex-col items-center justify-center h-[50px] w-[50px] p-1 group bg-white hover:bg-gray-300`}>
+                        className={`relative flex flex-col items-center justify-center ${toolbarIconsHeight} ${toolbarIconsWidth}] p-1 group bg-white hover:bg-gray-300`}>
                         {binaryOp === undefined ? (
                             <XCircleIcon className="text-gray-300 w-8 h-8" />
                         ) : (
@@ -169,12 +170,12 @@ export const BinaryOpsToolbar: React.FC<BinaryOpsToolbarProps> = () => {
                                 onClick={() => dispatch(setModality('NormalSelection' as CadmiaModality))}
                             />
                         )}
-                        <div className="absolute left-10 bottom-0 flex flex-col items-center hidden mb-10 group-hover:flex">
+                        <div className={toolbarsHintStyle}>
                             <span className="relative z-10 p-2 leading-none text-white whitespace-no-wrap bg-black shadow-lg rounded-md">EXIT</span>
                         </div>
                     </div>
                     <div
-                        className={`relative flex flex-col items-center justify-center h-[50px] w-[50px] p-1 group bg-white hover:bg-gray-300`}>
+                        className={`relative flex flex-col items-center justify-center ${toolbarIconsHeight} ${toolbarIconsWidth}] p-1 group bg-white hover:bg-gray-300`}>
                         {entityKeysForBinaryOperations.length > 1 ? (
                             <CheckIcon className="text-green-600 w-8 h-8"
                                 onClick={() => {
@@ -191,7 +192,7 @@ export const BinaryOpsToolbar: React.FC<BinaryOpsToolbarProps> = () => {
                         ) : (
                             <CheckIcon className="text-gray-300 w-8 h-8" />
                         )}
-                        <div className="absolute left-10 bottom-0 flex flex-col items-center hidden mb-10 group-hover:flex">
+                        <div className={toolbarsHintStyle}>
                             <span className="relative z-10 p-2 leading-none text-white whitespace-no-wrap bg-black shadow-lg rounded-md">EXECUTE OPERATION</span>
                         </div>
                     </div>

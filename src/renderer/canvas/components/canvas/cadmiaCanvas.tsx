@@ -24,12 +24,11 @@ export const CadmiaCanvas: React.FC<CadmiaCanvasProps> = () => {
   );
 
   return (
-    <div className="h-[92vh]">
+    <div className="h-[94vh]">
       <ReactReduxContext.Consumer>
         {({ store }) => (
           <Canvas
-            className="w-full h-full"
-            style={{ backgroundColor: 'gray' }}
+            className="w-full h-full bg-gradient-to-b from-gray-700 to-gray-100"
             camera={{
               position: [0, 50, 0],
               fov: 20,

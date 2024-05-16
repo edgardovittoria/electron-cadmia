@@ -25,12 +25,16 @@ root.render(
       }}
     >
       <Provider store={store}>
-        <PersistGate persistor={persistor}>
+        {/* <PersistGate persistor={persistor}>
           <div>
             <Toaster position="top-center" />
           </div>
           <App />
-        </PersistGate>
+        </PersistGate> */}
+        <div>
+          <Toaster position="top-center" />
+        </div>
+        <App />
       </Provider>
     </Auth0Provider>
   </React.StrictMode>,

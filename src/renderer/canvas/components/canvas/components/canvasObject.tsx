@@ -51,14 +51,14 @@ export const CanvasObject: React.FC<ComponentProps> = ({
       rotation={transformationParams.rotation}
       scale={transformationParams.scale}
       onDoubleClick={(e) => {
-        e.stopPropagation() 
+        e.stopPropagation()
         bounds.refresh(e.object).fit().clip()
         dispatch(setFocusNotToScene())}
       }
-      onContextMenu={(e) => {
+      /* onContextMenu={(e) => {
         e.stopPropagation();
         dispatch(setNextTransformationActive())
-      }}
+      }} */
       onClick={(e) => {
         e.stopPropagation();
         canvasObjectOpsBasedOnModality.onClickAction(keyComponent)

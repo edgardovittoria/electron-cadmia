@@ -7,16 +7,18 @@ import { Dispatch } from '@reduxjs/toolkit';
 import {
   lastActionTypeSelector,
   lengthFutureStateSelector,
-  lengthPastStateSelector,
+  lengthPastStateSelector
 } from 'cad-library';
+import { navbarDropdownItemStyle, navbarShortcutStyle } from '../../../../../config/styles';
 
-interface UndoRedoProps {}
+interface UndoRedoProps {
+}
 
 export const undoFunction = (
   lastActionType: string,
   undoActions: string[],
   setundoActions: Function,
-  dispatch: Dispatch,
+  dispatch: Dispatch
 ) => {
   setundoActions([...undoActions, lastActionType]);
   dispatch(ActionCreators.undo());
@@ -25,7 +27,7 @@ export const undoFunction = (
 export const redoFunction = (
   undoActions: string[],
   setundoActions: Function,
-  dispatch: Dispatch,
+  dispatch: Dispatch
 ) => {
   const newUndoActions = [...undoActions];
   newUndoActions.pop();
@@ -46,21 +48,25 @@ export const UndoRedo: React.FC<UndoRedoProps> = () => {
           onClick={() => {
             undoFunction(lastActionType, undoActions, setundoActions, dispatch);
           }}
-          className="flex justify-between items-center rounded-lg p-2 hover:bg-black hover:text-white hover:cursor-pointer"
+          className={navbarDropdownItemStyle}
         >
-          <div className="flex items-center">
-            <FontAwesomeIcon icon={faUndo} className="mr-5" />
-            <span className="text-base font-medium">Undo Last Action</span>
+          <div className='flex w-full justify-between'>
+            <div className='flex items-center'>
+              <FontAwesomeIcon icon={faUndo} className='mr-5' />
+              <span className='text-base font-medium'>Undo Last Action</span>
+            </div>
+            <p className={navbarShortcutStyle}>Ctrl + Z</p>
           </div>
-          <p className="text-base font-medium text-gray-300">Ctrl + Z</p>
         </div>
       ) : (
-        <div className="flex justify-between items-center rounded-lg p-2">
-          <div className="flex items-center">
-            <FontAwesomeIcon icon={faUndo} className="text-gray-300 mr-5" />
-            <span className="text-gray-300">Undo Last Action</span>
+        <div className={navbarDropdownItemStyle}>
+          <div className='flex w-full justify-between'>
+            <div className='flex items-center'>
+              <FontAwesomeIcon icon={faUndo} className='text-gray-300 mr-5' />
+              <span className='text-gray-300'>Undo Last Action</span>
+            </div>
+            <p className={navbarShortcutStyle}>Ctrl + Z</p>
           </div>
-          <p className="text-base font-medium text-gray-300">Ctrl + Z</p>
         </div>
       )}
 
@@ -69,25 +75,29 @@ export const UndoRedo: React.FC<UndoRedoProps> = () => {
           onClick={() => {
             redoFunction(undoActions, setundoActions, dispatch);
           }}
-          className="flex justify-between items-center rounded-lg p-2 hover:bg-black hover:text-white hover:cursor-pointer"
+          className={navbarDropdownItemStyle}
         >
-          <div className="flex items-center">
-            <FontAwesomeIcon icon={faRedo} className="mr-5" />
-            <span className="text-base font-medium">
+          <div className='flex w-full justify-between'>
+            <div className='flex items-center'>
+              <FontAwesomeIcon icon={faRedo} className='mr-5' />
+              <span className='text-base font-medium'>
               Redo Last Action
             </span>
+            </div>
+            <p className={navbarShortcutStyle}>Ctrl + X</p>
           </div>
-          <p className="text-base font-medium text-gray-300">Ctrl + X</p>
         </div>
       ) : (
-        <div className="flex justify-between items-center rounded-lg p-2">
-          <div className="flex items-center">
-            <FontAwesomeIcon icon={faRedo} className="text-gray-300 mr-5" />
-            <span className="text-base font-medium text-gray-300">
+        <div className={navbarDropdownItemStyle}>
+          <div className='flex w-full justify-between'>
+            <div className='flex items-center'>
+              <FontAwesomeIcon icon={faRedo} className='text-gray-300 mr-5' />
+              <span className='text-base font-medium text-gray-300'>
               Redo Last Action
             </span>
+            </div>
+            <p className={navbarShortcutStyle}>Ctrl + X</p>
           </div>
-          <p className="text-base font-medium text-gray-300">Ctrl + X</p>
         </div>
       )}
     </>

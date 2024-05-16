@@ -15,7 +15,7 @@ export const StatusBar: FC<StatusBarProps> = () => {
       className="z-50"
       theme="light"
       right={
-        <div className="h-[4vh] px-5 flex items-center justify-end">
+        <div className="h-[3vh] border-t border-black px-5 flex items-center justify-end">
           <span>Distance unit: </span>
           <select
             value={unit}

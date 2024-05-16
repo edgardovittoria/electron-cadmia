@@ -11,12 +11,13 @@ import { BordersMeshOption } from './components/bordersMeshOption';
 import {
   closeSidebar,
   openSidebar,
-  sidebarVisibilitySelector,
+  sidebarVisibilitySelector
 } from './sidebarSlice';
 import { useCadmiaModalityManager } from '../cadmiaModality/useCadmiaModalityManager';
-import { TiArrowRight } from 'react-icons/ti';
+import { TiArrowLeft, TiArrowRight } from 'react-icons/ti';
 
-interface SidebarProps {}
+interface SidebarProps {
+}
 
 export const Sidebar: React.FC<SidebarProps> = () => {
   const canvasComponents = useSelector(componentseSelector);
@@ -29,37 +30,37 @@ export const Sidebar: React.FC<SidebarProps> = () => {
     <>
       {sideBarVisibility ? (
         <div
-          className={`absolute top-[-2px] right-0 w-[23vw] bg-white p-[20px] text-white text-center
+          className={`absolute bottom-0 left-0 w-[18vw] bg-white p-[20px] text-white text-center
                 ${
-                  sideBarVisibility
-                    ? 'translate-x-0 transition '
-                    : 'translate-x-full transition'
-                }
+            sideBarVisibility
+              ? 'translate-x-0 transition '
+              : 'translate-x-full transition'
+          }
             `}
         >
-          <div className="flex items-center mb-[10px]">
-            <TiArrowRight
-              className="text-black w-6 h-6 hover:cursor-pointer"
+          <div className='flex items-center mb-[10px]'>
+            <TiArrowLeft
+              className='text-black w-6 h-6 hover:cursor-pointer'
               onClick={() => dispatch(closeSidebar())}
             />
-            <h2 className="text-xl text-black text-sm mx-auto font-bold">
+            <h2 className='text-xl text-black text-sm mx-auto font-bold'>
               Object Details
             </h2>
           </div>
-          <div className="h-full max-h-[800px] overflow-scroll">
+          <div className='h-full max-h-[800px] overflow-scroll'>
             <Outliner
               components={canvasComponents}
               selectedComponent={selectedComponent}
             />
             {selectedComponent && (
-              <div className="text-left">
+              <div className='text-left'>
                 {sideBarOptsBasedOnModality.elementsVisibility
                   .transformations && (
                   <>
-                    <h6 className="text-black mt-[10px] text-sm font-bold">
+                    <h6 className='text-black mt-[10px] text-sm font-bold'>
                       Transformation Params
                     </h6>
-                    <hr className="border-amber-500 mt-1" />
+                    <hr className='border-amber-500 mt-1' />
                     <Transformations
                       transformationParams={
                         selectedComponent.transformationParams
@@ -70,10 +71,10 @@ export const Sidebar: React.FC<SidebarProps> = () => {
                 {sideBarOptsBasedOnModality.elementsVisibility
                   .geometryParams && (
                   <>
-                    <h6 className="text-black mt-[10px] text-sm font-bold">
+                    <h6 className='text-black mt-[10px] text-sm font-bold'>
                       Geometry Params
                     </h6>
-                    <hr className="border-amber-500 mb-2 mt-1" />
+                    <hr className='border-amber-500 mb-2 mt-1' />
                     <GeometryParams entity={selectedComponent} />
                   </>
                 )}
@@ -86,20 +87,20 @@ export const Sidebar: React.FC<SidebarProps> = () => {
                 />
                 {sideBarOptsBasedOnModality.elementsVisibility.borders && (
                   <>
-                    <h6 className="text-black mt-[10px] text-sm font-bold">
+                    <h6 className='text-black mt-[10px] text-sm font-bold'>
                       Visualization
                     </h6>
-                    <hr className="border-amber-500 mb-2 mt-1" />
+                    <hr className='border-amber-500 mb-2 mt-1' />
                     <BordersMeshOption />
                   </>
                 )}
                 <button
-                  type="button"
-                  className="rounded bg-red-500 shadow p-2 mt-[20px] w-full"
+                  type='button'
+                  className='rounded bg-red-500 shadow p-2 mt-[20px] w-full'
                   onClick={() => {
                     if (
                       window.confirm(
-                        sideBarOptsBasedOnModality.deleteButton.messages.popup,
+                        sideBarOptsBasedOnModality.deleteButton.messages.popup
                       )
                     ) {
                       sideBarOptsBasedOnModality.deleteButton.onClickAction();
@@ -113,14 +114,11 @@ export const Sidebar: React.FC<SidebarProps> = () => {
           </div>
         </div>
       ) : (
-        <div className="absolute top-[10px] right-[10px] w-[3vw] bg-white p-[10px] text-white text-center shadow">
-          <div
-            className="flex flex-col items-center py-1  border-2 border-gray-300 rounded hover:border-black hover:cursor-pointer"
-            onClick={() => dispatch(openSidebar())}
-          >
-            <AdjustmentsHorizontalIcon className="text-black w-4 h-5" />
-          </div>
-        </div>
+
+        <div className='absolute bottom-0 font-semibold left-0 text-black bg-white border border-b-0 border-black rounded-r-xl px-3 w-[140px] hover:cursor-pointer hover:bg-black hover:text-white'
+             onClick={() => dispatch(openSidebar())}
+        >Object Details</div>
+
       )}
     </>
   );

@@ -7,6 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { UndoRedo } from './undoRedo';
+import {
+  navbarDropdownBoxStyle,
+  navbarDropdownItemStyle,
+  navbarDropdownPadding,
+  navbarDropdownStyle,
+  navbarShortcutStyle
+} from '../../../../../config/styles';
 
 interface EditItemProps {}
 
@@ -40,29 +47,31 @@ export const EditItem: React.FC<EditItemProps> = () => {
             leaveFrom="opacity-100 translate-y-0"
             leaveTo="opacity-0 translate-y-1"
           >
-            <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/2 transform px-2 sm:px-0">
-              <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+            <Popover.Panel className={navbarDropdownStyle}>
+              <div className={navbarDropdownBoxStyle}>
+                <div className={navbarDropdownPadding}>
                   <UndoRedo />
                   <div
                     onClick={() => {
                       dispatch(resetState());
                       dispatch(ActionCreators.clearHistory());
                     }}
-                    className="flex justify-between hover:bg-black hover:text-white hover:cursor-pointer items-center rounded-lg p-2"
+                    className={navbarDropdownItemStyle}
                   >
-                    <div className="flex flex-row items-center">
-                      <FontAwesomeIcon
-                        icon={faTrash}
-                        className="mr-5"
-                      />
-                      <span className="text-base font-medium">
+                    <div className="flex w-full justify-between">
+                      <div className="flex flex-row items-center">
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          className="mr-5"
+                        />
+                        <span className="text-base font-medium">
                         Clear All
                       </span>
+                      </div>
+                      <p className={navbarShortcutStyle}>
+                        Ctrl + Alt + R
+                      </p>
                     </div>
-                    <p className="text-base font-medium text-gray-300">
-                      Ctrl + Alt + R
-                    </p>
                   </div>
                 </div>
               </div>

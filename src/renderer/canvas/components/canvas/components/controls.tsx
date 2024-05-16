@@ -68,7 +68,7 @@ export const Controls: FC<{
           makeDefault
           // target={(orbitTarget) ? new THREE.Vector3(orbitTarget?.position[0], orbitTarget?.position[1], orbitTarget?.position[2]): new THREE.Vector3(0,0,0)}
         />
-        <GizmoHelper alignment="bottom-left">
+        <GizmoHelper alignment="bottom-right">
           <GizmoViewport
             axisColors={["red", "green", "blue"]}
             labelColor="white"

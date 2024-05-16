@@ -27,7 +27,7 @@ export const TransformationsToolbarSlice = createSlice({
                 type: 'scale',
                 active: false,
             }],
-            visible: true
+      visible: false
     } as TransformationsToolbarState,
     reducers: {
         setTransformationActive(transformationState: TransformationsToolbarState, action: PayloadAction<TransformationType>) {
@@ -57,4 +57,4 @@ export const {
 export const transformationsSelector = (state: { transformationsToolbar: TransformationsToolbarState }) => state.transformationsToolbar.transformations
 export const transformationsToolbarVisibilitySelector = (state: { transformationsToolbar: TransformationsToolbarState }) => state.transformationsToolbar.visible
 export const activeTransformationSelector = (state: { transformationsToolbar: TransformationsToolbarState }) => getActiveTransformationWithin(state.transformationsToolbar)
-const getActiveTransformationWithin = (state: TransformationsToolbarState) => state.transformations.filter(t => t.active)[0] 
+const getActiveTransformationWithin = (state: TransformationsToolbarState) => state.transformations.filter(t => t.active)[0]

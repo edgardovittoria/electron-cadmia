@@ -18,30 +18,29 @@ export function classNames(...classes: string[]) {
 
 export const Navbar: React.FC<NavbarProps> = ({ setShowCad }) => {
 
-  const { user } = useAuth0()
+  const { user } = useAuth0();
 
   return (
-    <Popover className="relative bg-white h-[4vh]">
-      <div className="mx-auto w-full h-full px-6">
-        <div className="flex items-center justify-between h-full">
-          <div className="flex justify-start w-0 flex-1 items-center gap-5">
-            <span className="text-2xl font-semibold">CADmIA</span>
-          </div>
-          <Popover.Group as="nav" className="hidden space-x-10 md:flex">
+    <Popover className='relative bg-white h-[3vh]'>
+      <div className='px-6'>
+        <div className='flex flex-row items-center justify-between w-full h-full'>
+          <Popover.Group as='nav' className='hidden space-x-3 md:flex'>
             <FileItem />
             <ViewItem />
             <EditItem />
             <Shapes />
           </Popover.Group>
-          <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-            <div
-              className="flex flex-row items-center gap-2 px-2 py-1 rounded-xl hover:bg-black hover:text-white hover:cursor-pointer"
-              onClick={() => setShowCad(false)}
-            >
-              <MdDashboard size={25} />
-              <span className="font-semibold">{user?.nickname}&apos;s Dashboard</span>
-            </div>
+
+          <span className='text-2xl font-semibold'>CADmIA</span>
+
+          <div
+            className='flex flex-row items-center gap-2 px-2 py-1 rounded-xl hover:bg-black hover:text-white hover:cursor-pointer'
+            onClick={() => setShowCad(false)}
+          >
+            <MdDashboard size={25} />
+            <span className='font-semibold'>{user?.nickname}&apos;s Dashboard</span>
           </div>
+
         </div>
       </div>
     </Popover>
