@@ -1,14 +1,14 @@
 import './App.css';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Dashboard from './dashboard/Dashboard';
-import Canvas from './canvas/Canvas';
+import CAD from './canvas/CAD';
 
 export default function App() {
   const [showCad, setShowCad] = useState<boolean>(false);
   return (
     <div>
       {showCad ? (
-        <Canvas setShowCad={setShowCad} />
+        <CAD setShowCad={setShowCad} />
       ) : (
         <Dashboard showCad={showCad} setShowCad={setShowCad} />
       )}

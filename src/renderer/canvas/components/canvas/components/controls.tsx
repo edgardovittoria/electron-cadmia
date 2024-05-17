@@ -1,4 +1,4 @@
-import { TransformControls, OrbitControls, GizmoHelper, GizmoViewport } from "@react-three/drei";
+import { TransformControls } from "@react-three/drei";
 import { Object3DNode, useThree } from "@react-three/fiber";
 import { TransformationParams, updateTransformationParams } from "cad-library";
 import { FC, useEffect, useRef } from "react";
@@ -60,20 +60,6 @@ export const Controls: FC<{
 
           />
         )}
-        <OrbitControls
-          addEventListener={undefined}
-          hasEventListener={undefined}
-          removeEventListener={undefined}
-          dispatchEvent={undefined}
-          makeDefault
-          // target={(orbitTarget) ? new THREE.Vector3(orbitTarget?.position[0], orbitTarget?.position[1], orbitTarget?.position[2]): new THREE.Vector3(0,0,0)}
-        />
-        <GizmoHelper alignment="bottom-right">
-          <GizmoViewport
-            axisColors={["red", "green", "blue"]}
-            labelColor="white"
-          />
-        </GizmoHelper>
       </>
     );
   };

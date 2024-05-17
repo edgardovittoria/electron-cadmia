@@ -7,7 +7,7 @@ import { TransformationsToolBar } from './components/transformationsToolbar/tran
 import { BinaryOpsToolbar } from './components/binaryOperationsToolbar/binaryOpsToolbar';
 import { MiscToolbar } from './components/miscToolbar/miscToolbar';
 import { ShapesToolbar } from './components/navBar/menuItems/shapes/shapeToolbar';
-import { Sidebar } from './components/sideBar/Sidebar';
+import { ObjectsDetails } from './components/objectsDetailsBar/ObjectsDetails';
 import { StatusBar } from './components/statusBar/statusBar';
 import { useCadmiaModalityManager } from './components/cadmiaModality/useCadmiaModalityManager';
 import Labels from './components/labels/Labels';
@@ -16,7 +16,7 @@ export interface CanvasProps {
   setShowCad: (v: boolean) => void;
 }
 
-const Canvas: React.FC<CanvasProps> = ({ setShowCad }) => {
+const CAD: React.FC<CanvasProps> = ({ setShowCad }) => {
   const { useBaseOpactityBasedOnModality } = useCadmiaModalityManager();
   useBaseOpactityBasedOnModality();
   return (
@@ -31,11 +31,11 @@ const Canvas: React.FC<CanvasProps> = ({ setShowCad }) => {
         <MiscToolbar />
         <ShapesToolbar />
         <Labels/>
-        <Sidebar />
+        <ObjectsDetails />
       </div>
       <StatusBar />
     </div>
   );
 };
 
-export default Canvas;
+export default CAD;

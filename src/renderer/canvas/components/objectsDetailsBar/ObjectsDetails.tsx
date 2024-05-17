@@ -6,23 +6,23 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { Transformations } from './components/transformations';
 import { GeometryParams } from './components/geometryParams/geometryParams';
 import { MaterialSelection } from './components/materialSelection/materialSelection';
-import { Outliner } from './components/outliner/outliner';
+import { Outliner } from './components/outliner';
 import { BordersMeshOption } from './components/bordersMeshOption';
 import {
-  closeSidebar,
-  openSidebar,
-  sidebarVisibilitySelector
-} from './sidebarSlice';
+  closeObjectsDetails,
+  openObjectsDetails,
+  objectsDetailsVisibilitySelector
+} from './objectsDetailsSlice';
 import { useCadmiaModalityManager } from '../cadmiaModality/useCadmiaModalityManager';
 import { TiArrowLeft, TiArrowRight } from 'react-icons/ti';
 
-interface SidebarProps {
+interface ObjectsDetailsProps {
 }
 
-export const Sidebar: React.FC<SidebarProps> = () => {
+export const ObjectsDetails: React.FC<ObjectsDetailsProps> = () => {
   const canvasComponents = useSelector(componentseSelector);
   const selectedComponent = useSelector(selectedComponentSelector);
-  const sideBarVisibility = useSelector(sidebarVisibilitySelector);
+  const sideBarVisibility = useSelector(objectsDetailsVisibilitySelector);
   const { sideBarOptsBasedOnModality } = useCadmiaModalityManager();
 
   return (

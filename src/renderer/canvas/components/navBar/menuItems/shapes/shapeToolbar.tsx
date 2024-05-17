@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   baseShapes,
   useAddToTheSceneANewShape,
@@ -7,19 +7,25 @@ import {
 import { shapesToolbarVisibilitySelector } from './shapesToolbarSlice';
 import { iconForA } from './shapes';
 import { toolbarIconsHeight, toolbarIconsWidth, toolbarsHintStyle } from '../../../../../config/styles';
+import { setModality } from '../../../cadmiaModality/cadmiaModalitySlice';
+import { useCadmiaModalityManager } from '../../../cadmiaModality/useCadmiaModalityManager';
 
 export const ShapesToolbar: React.FC = () => {
   const shapesToolbarVisible = useSelector(shapesToolbarVisibilitySelector);
   const { addToTheSceneANew } = useAddToTheSceneANewShape();
+  const { setOpacityNormalMode } = useCadmiaModalityManager()
+  const dispatch = useDispatch()
   return (
     <>
       {shapesToolbarVisible && (
-        <div className={`absolute flex flex-row left-[390px] top-[10px] text-center shadow ${toolbarIconsWidth}`}>
+        <div className={`absolute flex flex-row left-[285px] top-[10px] text-center shadow ${toolbarIconsWidth}`}>
           {baseShapes.map((shape) => (
             <div
               className={`relative flex px-1 items-center justify-center group bg-white hover:bg-black hover:text-white hover:cursor-pointer ${toolbarIconsHeight}`}
               onClick={() => {
-                addToTheSceneANew(shape);
+                dispatch(setModality('NormalSelection'))
+                let newComp = addToTheSceneANew(shape);
+                setOpacityNormalMode(newComp.keyComponent)
               }}
               key={shape}
             >

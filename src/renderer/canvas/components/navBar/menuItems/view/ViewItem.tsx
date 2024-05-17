@@ -4,10 +4,10 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useDispatch, useSelector } from 'react-redux';
 import { classNames } from '../../NavBar';
 import {
-  closeSidebar,
-  openSidebar,
-  sidebarVisibilitySelector
-} from '../../../sideBar/sidebarSlice';
+  closeObjectsDetails,
+  openObjectsDetails,
+  objectsDetailsVisibilitySelector
+} from '../../../objectsDetailsBar/objectsDetailsSlice';
 import {
   binaryOpToolbarVisibilitySelector,
   closeBinaryOperationsToolbar,
@@ -36,7 +36,7 @@ interface ViewItemProps {
 
 export const ViewItem: React.FC<ViewItemProps> = () => {
   const dispatch = useDispatch();
-  const sideBarChecked = useSelector(sidebarVisibilitySelector);
+  const sideBarChecked = useSelector(objectsDetailsVisibilitySelector);
   const binaryOperationsToolbarChecked = useSelector(
     binaryOpToolbarVisibilitySelector
   );
@@ -83,8 +83,8 @@ export const ViewItem: React.FC<ViewItemProps> = () => {
                             checked={sideBarChecked}
                             onChange={(checked: boolean) =>
                               checked
-                                ? dispatch(openSidebar())
-                                : dispatch(closeSidebar())
+                                ? dispatch(openObjectsDetails())
+                                : dispatch(closeObjectsDetails())
                             }
                             className={`${sideBarChecked ? 'bg-black' : 'bg-gray-400'} relative inline-flex h-[18px] w-[40px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
                           >

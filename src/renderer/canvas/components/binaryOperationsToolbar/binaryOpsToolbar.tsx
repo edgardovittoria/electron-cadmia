@@ -100,22 +100,22 @@ export const BinaryOpsToolbar: React.FC<BinaryOpsToolbarProps> = () => {
         return compositeEntity;
     };
 
-    useEffect(() => {
-        if (
-            temporaryEntitiesForBinaryOp.length > entityKeysForBinaryOperations.length
-        ) {
-            let elements = temporaryEntitiesForBinaryOp.filter(
-                (el) => !entityKeysForBinaryOperations.includes(el)
-            );
-            dispatch(setComponentsOpacity({ keys: elements, opacity: 0.3 }));
-        } else {
-            let elements = entityKeysForBinaryOperations.filter(
-                (el) => !temporaryEntitiesForBinaryOp.includes(el)
-            );
-            dispatch(setComponentsOpacity({ keys: elements, opacity: 1 }));
-        }
-        setTemporaryEntitiesForBinaryOp(entityKeysForBinaryOperations);
-    }, [entityKeysForBinaryOperations]);
+    // useEffect(() => {
+    //     if (
+    //         temporaryEntitiesForBinaryOp.length > entityKeysForBinaryOperations.length
+    //     ) {
+    //         let elements = temporaryEntitiesForBinaryOp.filter(
+    //             (el) => !entityKeysForBinaryOperations.includes(el)
+    //         );
+    //         dispatch(setComponentsOpacity({ keys: elements, opacity: 0.3 }));
+    //     } else {
+    //         let elements = entityKeysForBinaryOperations.filter(
+    //             (el) => !temporaryEntitiesForBinaryOp.includes(el)
+    //         );
+    //         dispatch(setComponentsOpacity({ keys: elements, opacity: 1 }));
+    //     }
+    //     setTemporaryEntitiesForBinaryOp(entityKeysForBinaryOperations);
+    // }, [entityKeysForBinaryOperations]);
 
 
     return (

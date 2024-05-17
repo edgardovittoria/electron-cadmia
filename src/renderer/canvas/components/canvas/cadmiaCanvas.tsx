@@ -7,10 +7,10 @@ import {
   FactoryShapes,
   keySelectedComponenteSelector,
 } from 'cad-library';
-import { Bounds, useBounds } from '@react-three/drei';
+import { Bounds, GizmoHelper, GizmoViewport, OrbitControls, useBounds } from '@react-three/drei';
 import { CanvasObject } from './components/canvasObject';
 import { Controls } from './components/controls';
-import { meshesWithBordersVisibleSelector } from '../sideBar/sidebarSlice';
+import { invisibleMeshesSelector, meshesWithBordersVisibleSelector } from '../objectsDetailsBar/objectsDetailsSlice';
 import { focusToSceneSelector } from '../navBar/menuItems/view/viewItemSlice';
 
 interface CadmiaCanvasProps {}
@@ -19,6 +19,7 @@ export const CadmiaCanvas: React.FC<CadmiaCanvasProps> = () => {
   const bordersVisible = useSelector(meshesWithBordersVisibleSelector);
   const components = useSelector(componentseSelector);
   const keySelectedComponent = useSelector(keySelectedComponenteSelector);
+  const invisibleMeshesKey = useSelector(invisibleMeshesSelector)
   const [meshSelected, setMeshSelected] = useState<THREE.Mesh | undefined>(
     undefined,
   );
@@ -47,7 +48,7 @@ export const CadmiaCanvas: React.FC<CadmiaCanvasProps> = () => {
               />
               <Bounds fit clip observe margin={1.2}>
                 <CommonObjectsActions>
-                  {components.map((component) => {
+                  {components.filter(c => invisibleMeshesKey.filter(key => key === c.keyComponent).length === 0).map((component) => {
                     return (
                       <CanvasObject
                         setMeshRef={setMeshSelected}
@@ -87,6 +88,20 @@ export const CadmiaCanvas: React.FC<CadmiaCanvasProps> = () => {
                 ]}
                 scale={[1, 1, 1]}
               />
+              <OrbitControls
+                addEventListener={undefined}
+                hasEventListener={undefined}
+                removeEventListener={undefined}
+                dispatchEvent={undefined}
+                makeDefault
+                // target={(orbitTarget) ? new THREE.Vector3(orbitTarget?.position[0], orbitTarget?.position[1], orbitTarget?.position[2]): new THREE.Vector3(0,0,0)}
+              />
+              <GizmoHelper alignment="bottom-right">
+                <GizmoViewport
+                  axisColors={["red", "green", "blue"]}
+                  labelColor="white"
+                />
+              </GizmoHelper>
             </Provider>
           </Canvas>
         )}

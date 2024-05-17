@@ -11,17 +11,29 @@ export const useCadmiaModalityManager = () => {
     const selectedComponent = useSelector(selectedComponentSelector)
     const multipleSelectionEntityKeys = useSelector(multipleSelectionEntitiesKeysSelector)
     const binaryOpsEntityKeys = useSelector(binaryOpEntitiesKeysSelector)
+    const components = useSelector(componentseSelector)
+
+    const setOpacityNormalMode = (newSelectedComponent: number) => {
+      dispatch(setComponentsOpacity({ keys: components.filter(c => c.keyComponent !== newSelectedComponent).map(c => c.keyComponent), opacity: 0.3 }));
+      dispatch(setComponentsOpacity({ keys: [newSelectedComponent], opacity: 1 }));
+    }
 
     const canvasObjectOpsBasedOnModality = {
         onClickAction: (keyComponent: number) => {
             if (modality === 'NormalSelection') {
-                (!selectedComponent || selectedComponent.keyComponent !== keyComponent) &&
-                    dispatch(selectComponent(keyComponent));
-            } else if (modality === 'BinaryOperation') {
-                dispatch(toggleEntitySelectionForBinaryOp(keyComponent));
+              (!selectedComponent || selectedComponent.keyComponent !== keyComponent) &&
+                  dispatch(selectComponent(keyComponent));
+                  setOpacityNormalMode(keyComponent)
+            }
+            else if (modality === 'BinaryOperation') {
+              let componentWillBeSelected = !binaryOpsEntityKeys.includes(keyComponent)
+              dispatch(toggleEntitySelectionForBinaryOp(keyComponent));
+              dispatch(setComponentsOpacity({ keys: [keyComponent], opacity: componentWillBeSelected ? 1 : 0.3 }));
             }
             else if (modality === 'MultipleSelection') {
-                dispatch(toggleEntitySelectionForMultipleSelection(keyComponent))
+              let componentWillBeSelected = !multipleSelectionEntityKeys.includes(keyComponent)
+              dispatch(toggleEntitySelectionForMultipleSelection(keyComponent))
+              dispatch(setComponentsOpacity({ keys: [keyComponent], opacity: componentWillBeSelected ? 1 : 0.3 }));
             }
         }
     }
@@ -45,25 +57,35 @@ export const useCadmiaModalityManager = () => {
                     return () => {
                         (!selectedComponent || selectedComponent.keyComponent !== keyComponent) &&
                             dispatch(selectComponent(keyComponent))
+                            setOpacityNormalMode(keyComponent)
                     };
                 } else if (modality === 'BinaryOperation') {
-                    return () => { dispatch(toggleEntitySelectionForBinaryOp(keyComponent)) };
+                    return () => {
+                      let componentWillBeSelected = !binaryOpsEntityKeys.includes(keyComponent)
+                      dispatch(toggleEntitySelectionForBinaryOp(keyComponent))
+                      dispatch(setComponentsOpacity({ keys: [keyComponent], opacity: componentWillBeSelected ? 1 : 0.3 }));
+                    };
                 }
                 else if (modality === 'MultipleSelection') {
-                    return () => { dispatch(toggleEntitySelectionForMultipleSelection(keyComponent)) }
+                    return () => {
+                      let componentWillBeSelected = !multipleSelectionEntityKeys.includes(keyComponent)
+                      dispatch(toggleEntitySelectionForMultipleSelection(keyComponent))
+                      dispatch(setComponentsOpacity({ keys: [keyComponent], opacity: componentWillBeSelected ? 1 : 0.3 }));
+                    }
                 }
             },
             isItemSelected: (keyComponent: number) => {
                 if (modality === 'NormalSelection') {
                     return selectedComponent ? selectedComponent.keyComponent === keyComponent : false
                 } else if (modality === 'BinaryOperation') {
-                    return binaryOpsEntityKeys.filter(key => key === keyComponent).length > 0
+                    return binaryOpsEntityKeys.includes(keyComponent)
                 }
                 else if (modality === 'MultipleSelection') {
-                    return multipleSelectionEntityKeys.filter(key => key === keyComponent).length > 0
+                    return multipleSelectionEntityKeys.includes(keyComponent)
                 }
             },
-            renameIconVisibility: modality === 'NormalSelection' ? true : false
+            renameIconVisibility: modality === 'NormalSelection' ? true : false,
+            hidingIconVisibility: modality !== 'BinaryOperation' ? true : false
         },
         deleteButton: {
             messages: modality !== 'MultipleSelection'
@@ -95,8 +117,9 @@ export const useCadmiaModalityManager = () => {
         }
     }
 
-    const useBaseOpactityBasedOnModality = () => {
+    const useBaseSetupBasedOnModality = () => {
         const modality = useSelector(cadmiaModalitySelector)
+        const selectedComponent = useSelector(selectedComponentSelector)
         const components = useSelector(componentseSelector)
         useEffect(() => {
             let componentKeys = components.reduce(
@@ -106,16 +129,17 @@ export const useCadmiaModalityManager = () => {
                 },
                 []
             );
-            if (modality !== 'NormalSelection') {
+            if (modality === 'BinaryOperation' || modality === 'MultipleSelection') {
                 dispatch(setComponentsOpacity({ keys: componentKeys, opacity: 0.3 }));
             } else {
-                dispatch(setComponentsOpacity({ keys: componentKeys, opacity: 1 }));
+              dispatch(setComponentsOpacity({ keys: componentKeys.filter(key => key !== selectedComponent.keyComponent), opacity: 0.3 }));
+              (selectedComponent) && dispatch(setComponentsOpacity({ keys: [selectedComponent.keyComponent], opacity: 1 }));
             }
         }, [modality]);
     }
 
     return {
         canvasObjectOpsBasedOnModality, miscToolbarOpsBasedOnModality,
-        sideBarOptsBasedOnModality, useBaseOpactityBasedOnModality
+        sideBarOptsBasedOnModality, useBaseOpactityBasedOnModality: useBaseSetupBasedOnModality, setOpacityNormalMode
     }
 }

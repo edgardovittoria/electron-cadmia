@@ -15,6 +15,9 @@ import {
   navbarDropdownPadding,
   navbarDropdownStyle
 } from '../../../../../config/styles';
+import { useDispatch } from 'react-redux';
+import { setModality } from '../../../cadmiaModality/cadmiaModalitySlice';
+import { useCadmiaModalityManager } from '../../../cadmiaModality/useCadmiaModalityManager';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -39,6 +42,8 @@ export const iconForA = (shape: string) => {
 
 export const Shapes: FC = () => {
   const { addToTheSceneANew } = useAddToTheSceneANewShape();
+  const { setOpacityNormalMode } = useCadmiaModalityManager()
+  const dispatch = useDispatch()
   return (
     <Popover className="relative">
       {({ open }) => (
@@ -65,7 +70,9 @@ export const Shapes: FC = () => {
                   {baseShapes.map((shape) => (
                     <div
                       onClick={() => {
-                        addToTheSceneANew(shape);
+                        dispatch(setModality('NormalSelection'))
+                        let newComp = addToTheSceneANew(shape);
+                        setOpacityNormalMode(newComp.keyComponent)
                       }}
                       key={shape}
                     >

@@ -7,7 +7,7 @@ import { CanvasSlice, UsersSlice } from 'cad-library';
 import { TransformationsToolbarSlice } from '../canvas/components/transformationsToolbar/toolbarTransformationSlice';
 import { BinaryOperationsToolbarSlice } from '../canvas/components/binaryOperationsToolbar/binaryOperationsToolbarSlice';
 import { CadmiaModalitySlice } from '../canvas/components/cadmiaModality/cadmiaModalitySlice';
-import { SidebarSlice } from '../canvas/components/sideBar/sidebarSlice';
+import { ObjectsDetailsSlice } from '../canvas/components/objectsDetailsBar/objectsDetailsSlice';
 import { StatusBarSlice } from '../canvas/components/statusBar/statusBarSlice';
 import { MiscToolbarSlice } from '../canvas/components/miscToolbar/miscToolbarSlice';
 import { ShapesToolbarSlice } from '../canvas/components/navBar/menuItems/shapes/shapesToolbarSlice';
@@ -30,7 +30,7 @@ const rootReducer = combineReducers({
   transformationsToolbar: TransformationsToolbarSlice.reducer,
   binaryOperationsToolbar: BinaryOperationsToolbarSlice.reducer,
   cadmiaModality: CadmiaModalitySlice.reducer,
-  sidebar: SidebarSlice.reducer,
+  objectsDetails: ObjectsDetailsSlice.reducer,
   user: UsersSlice.reducer,
   statusBarSlice: StatusBarSlice.reducer,
   miscToolbar: MiscToolbarSlice.reducer,

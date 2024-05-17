@@ -36,28 +36,28 @@ export const MiscToolbar: React.FC<MiscToolbarProps> = () => {
     setTemporaryEntitiesForMultipleSelection,
   ] = useState(multipleSelectionEntityKeys);
 
-  useEffect(() => {
-    if (
-      temporaryEntitiesForMultipleSelection.length >
-      multipleSelectionEntityKeys.length
-    ) {
-      const elements = temporaryEntitiesForMultipleSelection.filter(
-        (el) => !multipleSelectionEntityKeys.includes(el),
-      );
-      dispatch(setComponentsOpacity({ keys: elements, opacity: 0.3 }));
-    } else {
-      const elements = multipleSelectionEntityKeys.filter(
-        (el) => !temporaryEntitiesForMultipleSelection.includes(el),
-      );
-      dispatch(setComponentsOpacity({ keys: elements, opacity: 1 }));
-    }
-    setTemporaryEntitiesForMultipleSelection(multipleSelectionEntityKeys);
-  }, [multipleSelectionEntityKeys]);
+  // useEffect(() => {
+  //   if (
+  //     temporaryEntitiesForMultipleSelection.length >
+  //     multipleSelectionEntityKeys.length
+  //   ) {
+  //     const elements = temporaryEntitiesForMultipleSelection.filter(
+  //       (el) => !multipleSelectionEntityKeys.includes(el),
+  //     );
+  //     dispatch(setComponentsOpacity({ keys: elements, opacity: 0.3 }));
+  //   } else {
+  //     const elements = multipleSelectionEntityKeys.filter(
+  //       (el) => !temporaryEntitiesForMultipleSelection.includes(el),
+  //     );
+  //     dispatch(setComponentsOpacity({ keys: elements, opacity: 1 }));
+  //   }
+  //   setTemporaryEntitiesForMultipleSelection(multipleSelectionEntityKeys);
+  // }, [multipleSelectionEntityKeys]);
 
   return (
     <>
       {miscToolbarVisible && (
-        <div className="absolute left-[285px] top-[10px] w-[90px] text-center shadow grid grid-cols-3">
+        <div className="absolute left-[15px] top-[10px] w-[90px] text-center shadow grid grid-cols-3">
           <div className={`relative flex flex-col items-center justify-center ${toolbarIconsHeight} ${toolbarIconsWidth} p-1 group bg-white`}>
             <DocumentDuplicateIcon
               className="w-8 h-8"

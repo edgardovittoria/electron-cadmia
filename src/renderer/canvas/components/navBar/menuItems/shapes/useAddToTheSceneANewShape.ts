@@ -24,46 +24,29 @@ export const useAddToTheSceneANewShape = () => {
     return entity;
   };
   const addToTheSceneANew = (shape: string) => {
+    let newComponent = {} as ComponentEntity
     switch (shape) {
       case 'Brick':
-        dispatch(
-          addComponent(
-            defaultNamedNew(getDefaultCube(numberOfGeneratedKey, dispatch)),
-          ),
-        );
+        newComponent = defaultNamedNew(getDefaultCube(numberOfGeneratedKey, dispatch))
         break;
       case 'Cylinder':
-        dispatch(
-          addComponent(
-            defaultNamedNew(getDefaultCylinder(numberOfGeneratedKey, dispatch)),
-          ),
-        );
+        newComponent = defaultNamedNew(getDefaultCylinder(numberOfGeneratedKey, dispatch))
         break;
       case 'Cone':
-        dispatch(
-          addComponent(
-            defaultNamedNew(getDefaultCone(numberOfGeneratedKey, dispatch)),
-          ),
-        );
+        newComponent = defaultNamedNew(getDefaultCone(numberOfGeneratedKey, dispatch))
         break;
       case 'Sphere':
-        dispatch(
-          addComponent(
-            defaultNamedNew(getDefaultSphere(numberOfGeneratedKey, dispatch)),
-          ),
-        );
+        newComponent = defaultNamedNew(getDefaultSphere(numberOfGeneratedKey, dispatch))
         break;
       case 'Torus':
-        dispatch(
-          addComponent(
-            defaultNamedNew(getDefaultTorus(numberOfGeneratedKey, dispatch)),
-          ),
-        );
+        newComponent = defaultNamedNew(getDefaultTorus(numberOfGeneratedKey, dispatch))
         break;
       default:
         break;
     }
+    dispatch(addComponent(newComponent))
     dispatch(setFocusNotToScene());
+    return newComponent
   };
   return { addToTheSceneANew };
 };
