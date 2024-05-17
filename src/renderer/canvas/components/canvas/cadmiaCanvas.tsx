@@ -1,13 +1,15 @@
-import React, { FC, ReactNode, useEffect, useState } from 'react';
-import { Provider, ReactReduxContext, useSelector } from 'react-redux';
+import React, { FC, ReactNode, useEffect, useLayoutEffect, useState } from 'react';
+import { Provider, ReactReduxContext, useDispatch, useSelector } from 'react-redux';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
 import {
+  ComponentEntity,
   componentseSelector,
   FactoryShapes,
   keySelectedComponenteSelector,
+  setComponentsOpacity,
 } from 'cad-library';
-import { Bounds, GizmoHelper, GizmoViewport, OrbitControls, useBounds } from '@react-three/drei';
+import { Bounds, Edges, GizmoHelper, GizmoViewport, OrbitControls, useBounds } from '@react-three/drei';
 import { CanvasObject } from './components/canvasObject';
 import { Controls } from './components/controls';
 import { invisibleMeshesSelector, meshesWithBordersVisibleSelector } from '../objectsDetailsBar/objectsDetailsSlice';
@@ -72,13 +74,14 @@ export const CadmiaCanvas: React.FC<CadmiaCanvasProps> = () => {
                       </CanvasObject>
                     );
                   })}
+                  {invisibleMeshesKey.includes(keySelectedComponent) && <MeshEdgesOnly entity={components.filter(c => c.keyComponent === keySelectedComponent)[0]} key={keySelectedComponent}/>}
                 </CommonObjectsActions>
               </Bounds>
               {/* <PointerIntersectionOnMeshSurface /> */}
-              <Controls
+              {!invisibleMeshesKey.includes(keySelectedComponent) && <Controls
                 keySelectedComponent={keySelectedComponent}
                 mesh={meshSelected}
-              />
+              />}
               <gridHelper
                 args={[
                   500,
@@ -119,3 +122,19 @@ const CommonObjectsActions: FC<{ children: ReactNode }> = ({ children }) => {
 
   return <group>{children}</group>;
 };
+
+
+const MeshEdgesOnly: FC<{entity: ComponentEntity}> = ({entity}) => {
+  return (
+    <mesh
+      key={entity.keyComponent}
+      name={entity.keyComponent.toString()}
+      position={entity.transformationParams.position}
+      rotation={entity.transformationParams.rotation}
+      scale={entity.transformationParams.scale}
+    >
+      <FactoryShapes entity={{...entity, opacity: 0.0}}/>
+      <Edges />
+    </mesh>
+  )
+}

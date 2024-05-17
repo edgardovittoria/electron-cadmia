@@ -4,6 +4,7 @@ import { Material, componentseSelector, removeComponent, removeComponentMaterial
 import { binaryOpEntitiesKeysSelector, toggleEntitySelectionForBinaryOp } from "../binaryOperationsToolbar/binaryOperationsToolbarSlice";
 import { multipleSelectionEntitiesKeysSelector, toggleEntitySelectionForMultipleSelection } from "../miscToolbar/miscToolbarSlice";
 import { useEffect } from "react";
+import { invisibleMeshesSelector, setMeshInvisible, setMeshVisible } from "../objectsDetailsBar/objectsDetailsSlice";
 
 export const useCadmiaModalityManager = () => {
     const modality = useSelector(cadmiaModalitySelector)
@@ -12,6 +13,7 @@ export const useCadmiaModalityManager = () => {
     const multipleSelectionEntityKeys = useSelector(multipleSelectionEntitiesKeysSelector)
     const binaryOpsEntityKeys = useSelector(binaryOpEntitiesKeysSelector)
     const components = useSelector(componentseSelector)
+    const invisibleMeshes = useSelector(invisibleMeshesSelector)
 
     const setOpacityNormalMode = (newSelectedComponent: number) => {
       dispatch(setComponentsOpacity({ keys: components.filter(c => c.keyComponent !== newSelectedComponent).map(c => c.keyComponent), opacity: 0.3 }));
@@ -26,16 +28,48 @@ export const useCadmiaModalityManager = () => {
                   setOpacityNormalMode(keyComponent)
             }
             else if (modality === 'BinaryOperation') {
+              if(!invisibleMeshes.includes(keyComponent)){
               let componentWillBeSelected = !binaryOpsEntityKeys.includes(keyComponent)
               dispatch(toggleEntitySelectionForBinaryOp(keyComponent));
               dispatch(setComponentsOpacity({ keys: [keyComponent], opacity: componentWillBeSelected ? 1 : 0.3 }));
+              }
             }
             else if (modality === 'MultipleSelection') {
+              if(!invisibleMeshes.includes(keyComponent)){
               let componentWillBeSelected = !multipleSelectionEntityKeys.includes(keyComponent)
               dispatch(toggleEntitySelectionForMultipleSelection(keyComponent))
               dispatch(setComponentsOpacity({ keys: [keyComponent], opacity: componentWillBeSelected ? 1 : 0.3 }));
+              }
             }
         }
+    }
+
+    const meshHidingActionBasedOnModality = (keyComponent: number) => {
+      if(modality === 'NormalSelection'){
+        dispatch(setMeshInvisible(keyComponent))
+      }
+      else if (modality === 'BinaryOperation'){
+        binaryOpsEntityKeys.includes(keyComponent) && dispatch(toggleEntitySelectionForBinaryOp(keyComponent))
+        dispatch(setMeshInvisible(keyComponent))
+      }
+      else if (modality === 'MultipleSelection'){
+        multipleSelectionEntityKeys.includes(keyComponent) && dispatch(toggleEntitySelectionForMultipleSelection(keyComponent))
+        dispatch(setMeshInvisible(keyComponent))
+      }
+    }
+
+    const meshUnhidingActionBasedOnModality = (keyComponent: number) => {
+      if(modality === 'NormalSelection'){
+        dispatch(setMeshVisible(keyComponent))
+      }
+      else if (modality === 'BinaryOperation'){
+        dispatch(setComponentsOpacity({keys: [keyComponent], opacity: 0.3}))
+        dispatch(setMeshVisible(keyComponent))
+      }
+      else if (modality === 'MultipleSelection'){
+        dispatch(setComponentsOpacity({keys: [keyComponent], opacity: 0.3}))
+        dispatch(setMeshVisible(keyComponent))
+      }
     }
 
     const miscToolbarOpsBasedOnModality = {
@@ -61,16 +95,20 @@ export const useCadmiaModalityManager = () => {
                     };
                 } else if (modality === 'BinaryOperation') {
                     return () => {
-                      let componentWillBeSelected = !binaryOpsEntityKeys.includes(keyComponent)
-                      dispatch(toggleEntitySelectionForBinaryOp(keyComponent))
-                      dispatch(setComponentsOpacity({ keys: [keyComponent], opacity: componentWillBeSelected ? 1 : 0.3 }));
+                      if(!invisibleMeshes.includes(keyComponent)){
+                        let componentWillBeSelected = !binaryOpsEntityKeys.includes(keyComponent)
+                        dispatch(toggleEntitySelectionForBinaryOp(keyComponent))
+                        dispatch(setComponentsOpacity({ keys: [keyComponent], opacity: componentWillBeSelected ? 1 : 0.3 }));
+                      }
                     };
                 }
                 else if (modality === 'MultipleSelection') {
                     return () => {
+                    if(!invisibleMeshes.includes(keyComponent)){
                       let componentWillBeSelected = !multipleSelectionEntityKeys.includes(keyComponent)
                       dispatch(toggleEntitySelectionForMultipleSelection(keyComponent))
                       dispatch(setComponentsOpacity({ keys: [keyComponent], opacity: componentWillBeSelected ? 1 : 0.3 }));
+                      }
                     }
                 }
             },
@@ -83,9 +121,7 @@ export const useCadmiaModalityManager = () => {
                 else if (modality === 'MultipleSelection') {
                     return multipleSelectionEntityKeys.includes(keyComponent)
                 }
-            },
-            renameIconVisibility: modality === 'NormalSelection' ? true : false,
-            hidingIconVisibility: modality !== 'BinaryOperation' ? true : false
+            }
         },
         deleteButton: {
             messages: modality !== 'MultipleSelection'
@@ -140,6 +176,6 @@ export const useCadmiaModalityManager = () => {
 
     return {
         canvasObjectOpsBasedOnModality, miscToolbarOpsBasedOnModality,
-        sideBarOptsBasedOnModality, useBaseOpactityBasedOnModality: useBaseSetupBasedOnModality, setOpacityNormalMode
+        sideBarOptsBasedOnModality, useBaseOpactityBasedOnModality: useBaseSetupBasedOnModality, setOpacityNormalMode, meshHidingActionBasedOnModality, meshUnhidingActionBasedOnModality
     }
 }

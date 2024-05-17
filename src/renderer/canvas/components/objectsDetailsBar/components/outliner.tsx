@@ -1,7 +1,7 @@
 import { ComponentEntity, updateName } from 'cad-library';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { invisibleMeshesSelector } from '../objectsDetailsSlice';
+import { invisibleMeshesSelector, setMeshInvisible, setMeshVisible } from '../objectsDetailsSlice';
 import { useCadmiaModalityManager } from '../../cadmiaModality/useCadmiaModalityManager';
 import { CubeIcon } from '@heroicons/react/24/outline';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
@@ -42,8 +42,9 @@ const OutlinerItem: FC<OutlinerItemProps> = ({ keyComponent, nameComponent, isVi
 
   const [outlinerItemVisibility, setOutlinerItemVisibility] = useState(true);
   const dispatch = useDispatch()
-  const { sideBarOptsBasedOnModality } = useCadmiaModalityManager()
+  const { sideBarOptsBasedOnModality, meshHidingActionBasedOnModality, meshUnhidingActionBasedOnModality } = useCadmiaModalityManager()
   const isSelelctedComponent = sideBarOptsBasedOnModality.outliner.isItemSelected(keyComponent)
+  const [newName, setNewName] = useState(nameComponent)
 
   useEffect(() => {
       !isSelelctedComponent && setOutlinerItemVisibility(true)
@@ -51,55 +52,42 @@ const OutlinerItem: FC<OutlinerItemProps> = ({ keyComponent, nameComponent, isVi
 
 
   return (
-      <>
-          {!isSelelctedComponent ?
-              <div
-                  key={keyComponent}
-                  className="border-2 border-transparent text-black text-[9px] font-bold text-left pl-4 flex w-1/2"
-                  onClick={sideBarOptsBasedOnModality.outliner.onClickItemAction(keyComponent)}
-              >
-                  <CubeIcon className="w-[10px] mr-2" />
-                  {nameComponent}
-              </div>
-              : (
-                  outlinerItemVisibility ?
-                      <div className="flex items-center border-2 border-amber-400 rounded w-1/2 justify-between">
-                          <div
-                              key={keyComponent}
-                              className="text-black text-[9px] font-bold text-left pl-4 flex items-center"
-                              onClick={sideBarOptsBasedOnModality.outliner.onClickItemAction(keyComponent)}
-                          >
-                              <CubeIcon className="w-[10px] mr-2" />
-                              {nameComponent}
-                          </div>
-                          {sideBarOptsBasedOnModality.outliner.hidingIconVisibility &&
-                              <div className="tooltip" data-tip="Hide/Show">
-                                  {isVisible
-                                  ? <IoMdEye className="w-[17px] pr-1 text-black hover:cursor-pointer" onClick={() => {}} />
-                                  : <IoMdEyeOff className="w-[17px] pr-1 text-black hover:cursor-pointer" onClick={() => {}} />}
-                              </div>
-                          }
-                          {sideBarOptsBasedOnModality.outliner.renameIconVisibility &&
-                              <div className="tooltip" data-tip="Rename">
-                                  <BiRename className="w-[17px] pr-1 text-black" onClick={() => { setOutlinerItemVisibility(false) }} />
-                              </div>
-                          }
-                      </div>
-                      :
-                      <div key={keyComponent + "_input"} className="text-left">
-                          <input
-                              type="text"
-                              className="border-2 border-amber-400 text-black text-[9px] font-bold w-1/3 rounded text-left pl-4"
-                              defaultValue={nameComponent}
-                              onBlur={(e) => {
-                                  dispatch(updateName({ key: keyComponent, name: e.currentTarget.value }))
-                                  setOutlinerItemVisibility(true)
-                              }}
-                          />
-                      </div>
-              )
-          }
-      </>
-
+        <div className={`flex items-center ${!isSelelctedComponent ? 'hover:border-2 hover:border-gray-400' : 'border-2 border-red-400'} hover:cursor-pointer rounded w-1/2 justify-between`} >
+            {outlinerItemVisibility ?
+            <>
+                <div
+                key={keyComponent}
+                className="text-black text-[9px] font-bold text-left pl-4 flex w-1/2"
+                onClick={sideBarOptsBasedOnModality.outliner.onClickItemAction(keyComponent)}
+                >
+                <CubeIcon className="w-[10px] mr-2" />
+                {nameComponent}
+                </div>
+                <div>
+                    <div className="tooltip" data-tip="Hide/Show">
+                        {isVisible
+                        ? <IoMdEye className="w-[17px] pr-1 text-black hover:cursor-pointer" onClick={() => {meshHidingActionBasedOnModality(keyComponent)}} />
+                        : <IoMdEyeOff className="w-[17px] pr-1 text-black hover:cursor-pointer" onClick={() => {meshUnhidingActionBasedOnModality(keyComponent)}} />}
+                    </div>
+                    <div className="tooltip" data-tip="Rename">
+                        <BiRename className="w-[17px] pr-1 text-black" onClick={() => { setOutlinerItemVisibility(false) }} />
+                    </div>
+                </div>
+            </>
+            :
+            <>
+                <input
+                    type="text"
+                    className="text-black text-[9px] font-bold text-left pl-4 flex w-full"
+                    defaultValue={nameComponent}
+                    onChange={(e) => setNewName(e.currentTarget.value)}
+                />
+                <button className='text-black border-2 border-gray-400' onClick={() => {
+                    dispatch(updateName({ key: keyComponent, name: newName }))
+                    setOutlinerItemVisibility(true)
+                }}>save</button>
+            </>
+            }
+        </div>
   )
 }
