@@ -124,17 +124,19 @@ export const useCadmiaModalityManager = () => {
             }
         },
         deleteButton: {
-            messages: modality !== 'MultipleSelection'
-                ? { popup: `Sei sicuro di voler eliminare il componente ${(selectedComponent) ? selectedComponent.name : ''} ?`, buttonLabel: `Delete ${(selectedComponent) ? selectedComponent.name : ''}` }
-                : { popup: `Sei sicuro di voler eliminare i componenti selezionati?`, buttonLabel: 'Delete components' },
-            onClickAction: () => {
+            messages: (keyComponentToDelete: number) => {
+              return modality !== 'MultipleSelection'
+                ? { popup: `Sei sicuro di voler eliminare il componente ${components.filter(c => c.keyComponent === keyComponentToDelete)[0].name} ?`, buttonLabel: `Delete ${components.filter(c => c.keyComponent === keyComponentToDelete)[0].name}` }
+                : { popup: `Sei sicuro di voler eliminare i componenti selezionati?`, buttonLabel: 'Delete components' }},
+            onClickAction: (keyComponentToDelete: number) => {
                 if (modality !== 'MultipleSelection') {
-                    (selectedComponent) && dispatch(removeComponent(selectedComponent.keyComponent))
+                    (selectedComponent) && dispatch(removeComponent(keyComponentToDelete))
                 } else {
                     multipleSelectionEntityKeys.forEach(key => dispatch(removeComponent(key)))
                 }
                 dispatch(setModality('NormalSelection'))
-            }
+            },
+            visibility: (keyComponent: number) => (modality === 'MultipleSelection' && !multipleSelectionEntityKeys.includes(keyComponent)) ? false : true
         },
         material: {
             setMaterial: (material: Material) =>

@@ -1,11 +1,12 @@
 import { ComponentEntity, updateName } from 'cad-library';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { invisibleMeshesSelector, setMeshInvisible, setMeshVisible } from '../objectsDetailsSlice';
+import { invisibleMeshesSelector } from '../objectsDetailsSlice';
 import { useCadmiaModalityManager } from '../../cadmiaModality/useCadmiaModalityManager';
 import { CubeIcon } from '@heroicons/react/24/outline';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { BiRename } from 'react-icons/bi';
+import { MdDelete } from 'react-icons/md';
 
 interface OutlinerProps {
     components: ComponentEntity[],
@@ -52,12 +53,12 @@ const OutlinerItem: FC<OutlinerItemProps> = ({ keyComponent, nameComponent, isVi
 
 
   return (
-        <div className={`flex items-center ${!isSelelctedComponent ? 'hover:border-2 hover:border-gray-400' : 'border-2 border-red-400'} hover:cursor-pointer rounded w-1/2 justify-between`} >
+        <div className={`flex items-center ${!isSelelctedComponent ? 'hover:border-2 hover:border-gray-400' : 'border-2 border-red-400'} hover:cursor-pointer rounded w-full justify-between`} >
             {outlinerItemVisibility ?
             <>
                 <div
                 key={keyComponent}
-                className="text-black text-[9px] font-bold text-left pl-4 flex w-1/2"
+                className="text-black text-[9px] font-bold text-left pl-4 flex w-2/3"
                 onClick={sideBarOptsBasedOnModality.outliner.onClickItemAction(keyComponent)}
                 >
                 <CubeIcon className="w-[10px] mr-2" />
@@ -72,6 +73,13 @@ const OutlinerItem: FC<OutlinerItemProps> = ({ keyComponent, nameComponent, isVi
                     <div className="tooltip" data-tip="Rename">
                         <BiRename className="w-[17px] pr-1 text-black" onClick={() => { setOutlinerItemVisibility(false) }} />
                     </div>
+                    {sideBarOptsBasedOnModality.deleteButton.visibility(keyComponent) && <div className="tooltip" data-tip="Delete">
+                        <MdDelete className="w-[17px] pr-1 text-black" onClick={() => {
+                          if (window.confirm(sideBarOptsBasedOnModality.deleteButton.messages(keyComponent).popup)) {
+                            sideBarOptsBasedOnModality.deleteButton.onClickAction(keyComponent);
+                          }
+                        }} />
+                    </div>}
                 </div>
             </>
             :

@@ -1,20 +1,15 @@
 import React from 'react';
-import { AdjustmentsHorizontalIcon } from '@heroicons/react/20/solid';
 import { componentseSelector, selectedComponentSelector } from 'cad-library';
-import { useDispatch, useSelector } from 'react-redux';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 import { Transformations } from './components/transformations';
 import { GeometryParams } from './components/geometryParams/geometryParams';
 import { MaterialSelection } from './components/materialSelection/materialSelection';
 import { Outliner } from './components/outliner';
 import { BordersMeshOption } from './components/bordersMeshOption';
 import {
-  closeObjectsDetails,
-  openObjectsDetails,
   objectsDetailsVisibilitySelector
 } from './objectsDetailsSlice';
 import { useCadmiaModalityManager } from '../cadmiaModality/useCadmiaModalityManager';
-import { TiArrowLeft, TiArrowRight } from 'react-icons/ti';
 
 interface ObjectsDetailsProps {
 }
@@ -78,21 +73,6 @@ export const ObjectsDetails: React.FC<ObjectsDetailsProps> = () => {
                     <BordersMeshOption />
                   </>
                 )}
-                <button
-                  type='button'
-                  className='rounded bg-red-500 shadow p-2 mt-[20px] w-full'
-                  onClick={() => {
-                    if (
-                      window.confirm(
-                        sideBarOptsBasedOnModality.deleteButton.messages.popup
-                      )
-                    ) {
-                      sideBarOptsBasedOnModality.deleteButton.onClickAction();
-                    }
-                  }}
-                >
-                  {sideBarOptsBasedOnModality.deleteButton.messages.buttonLabel}
-                </button>
               </div>
             )}
           </div>
