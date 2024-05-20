@@ -43,8 +43,8 @@ const OutlinerItem: FC<OutlinerItemProps> = ({ keyComponent, nameComponent, isVi
 
   const [outlinerItemVisibility, setOutlinerItemVisibility] = useState(true);
   const dispatch = useDispatch()
-  const { sideBarOptsBasedOnModality, meshHidingActionBasedOnModality, meshUnhidingActionBasedOnModality } = useCadmiaModalityManager()
-  const isSelelctedComponent = sideBarOptsBasedOnModality.outliner.isItemSelected(keyComponent)
+  const { objectsDetailsOptsBasedOnModality, meshHidingActionBasedOnModality, meshUnhidingActionBasedOnModality } = useCadmiaModalityManager()
+  const isSelelctedComponent = objectsDetailsOptsBasedOnModality.outliner.isItemSelected(keyComponent)
   const [newName, setNewName] = useState(nameComponent)
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const OutlinerItem: FC<OutlinerItemProps> = ({ keyComponent, nameComponent, isVi
                 <div
                 key={keyComponent}
                 className="text-black text-[9px] font-bold text-left pl-4 flex w-2/3"
-                onClick={sideBarOptsBasedOnModality.outliner.onClickItemAction(keyComponent)}
+                onClick={(e) => objectsDetailsOptsBasedOnModality.outliner.onClickItemAction(keyComponent)}
                 >
                 <CubeIcon className="w-[10px] mr-2" />
                 {nameComponent}
@@ -73,10 +73,10 @@ const OutlinerItem: FC<OutlinerItemProps> = ({ keyComponent, nameComponent, isVi
                     <div className="tooltip" data-tip="Rename">
                         <BiRename className="w-[17px] pr-1 text-black" onClick={() => { setOutlinerItemVisibility(false) }} />
                     </div>
-                    {sideBarOptsBasedOnModality.deleteButton.visibility(keyComponent) && <div className="tooltip" data-tip="Delete">
+                    {objectsDetailsOptsBasedOnModality.deleteButton.visibility(keyComponent) && <div className="tooltip" data-tip="Delete">
                         <MdDelete className="w-[17px] pr-1 text-black" onClick={() => {
-                          if (window.confirm(sideBarOptsBasedOnModality.deleteButton.messages(keyComponent).popup)) {
-                            sideBarOptsBasedOnModality.deleteButton.onClickAction(keyComponent);
+                          if (window.confirm(objectsDetailsOptsBasedOnModality.deleteButton.messages(keyComponent).popup)) {
+                            objectsDetailsOptsBasedOnModality.deleteButton.onClickAction(keyComponent);
                           }
                         }} />
                     </div>}

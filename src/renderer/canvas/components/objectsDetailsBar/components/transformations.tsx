@@ -37,8 +37,8 @@ export const Transformations: FC<{ transformationParams: TransformationParams }>
               <span className="text-black w-[15%] text-[10px]">rotation</span>
               <div className="flex mb-[5px] justify-between pr-[15px] w-[83%]">
                   {transformationParams.rotation.map((paramValue, index) =>
-                    <div className='flex flex-col justify-center items-center w-[30%]'>
-                      <input key={index}
+                    <div key={index} className='flex flex-col justify-center items-center w-[30%]'>
+                      <input
                              type="number"
                              step="1"
                              min={-180}

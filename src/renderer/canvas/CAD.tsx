@@ -7,10 +7,9 @@ import { TransformationsToolBar } from './components/transformationsToolbar/tran
 import { BinaryOpsToolbar } from './components/binaryOperationsToolbar/binaryOpsToolbar';
 import { MiscToolbar } from './components/miscToolbar/miscToolbar';
 import { ShapesToolbar } from './components/navBar/menuItems/shapes/shapeToolbar';
-import { ObjectsDetails } from './components/objectsDetailsBar/ObjectsDetails';
 import { StatusBar } from './components/statusBar/statusBar';
 import { useCadmiaModalityManager } from './components/cadmiaModality/useCadmiaModalityManager';
-import Labels from './components/labels/Labels';
+import TabbedMenu from './components/canvas/TabbedMenu';
 
 export interface CanvasProps {
   setShowCad: (v: boolean) => void;
@@ -30,8 +29,7 @@ const CAD: React.FC<CanvasProps> = ({ setShowCad }) => {
         <BinaryOpsToolbar />
         <MiscToolbar />
         <ShapesToolbar />
-        <Labels/>
-        <ObjectsDetails />
+        <TabbedMenu/>
       </div>
       <StatusBar />
     </div>
