@@ -205,22 +205,9 @@ export const useCadmiaModalityManager = () => {
       }, []);
       if (modality === 'BinaryOperation' || modality === 'MultipleSelection') {
         dispatch(setComponentsOpacity({ keys: componentKeys, opacity: 0.3 }));
-      } else {
-        dispatch(
-          setComponentsOpacity({
-            keys: componentKeys.filter(
-              (key) => key !== selectedComponent.keyComponent,
-            ),
-            opacity: 0.3,
-          }),
-        );
-        selectedComponent &&
-          dispatch(
-            setComponentsOpacity({
-              keys: [selectedComponent.keyComponent],
-              opacity: 1,
-            }),
-          );
+      } else if (modality === 'NormalSelection') {
+        dispatch(setComponentsOpacity({ keys: componentKeys, opacity: 0.3,}));
+        (selectedComponent) && dispatch(setComponentsOpacity({ keys: [selectedComponent.keyComponent], opacity: 1,}));
       }
     }, [modality]);
   };
