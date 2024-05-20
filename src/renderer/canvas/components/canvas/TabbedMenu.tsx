@@ -27,11 +27,6 @@ const TabbedMenu: React.FC<TabbedMenuProps> = ({}) => {
         >
           Objects Details
         </div>
-        <div
-          className={` font-semibold text-white bg-black z-50 rounded-tr-xl rounded-tl-xl px-3 w-fit hover:cursor-pointer hover:bg-white hover:text-black`}
-        >
-          Material Details
-        </div>
       </div>
       {objectsDetailsVisibility && <ObjectsDetails />}
     </>

@@ -48,15 +48,7 @@ export const ObjectsDetails: React.FC<ObjectsDetailsProps> = () => {
                 <GeometryParams entity={selectedComponent} />
               </>
             )}
-            <MaterialSelection
-              defaultMaterial={selectedComponent.material}
-              setMaterial={
-                objectsDetailsOptsBasedOnModality.material.setMaterial
-              }
-              unsetMaterial={
-                objectsDetailsOptsBasedOnModality.material.unsetMaterial
-              }
-            />
+            <MaterialSelection defaultMaterial={selectedComponent.material} />
             {objectsDetailsOptsBasedOnModality.elementsVisibility.borders && (
               <>
                 <h6 className="text-black mt-[10px] text-sm font-bold">
