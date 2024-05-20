@@ -1,6 +1,6 @@
 import { Listbox, Transition } from '@headlessui/react';
 import { Material } from 'cad-library';
-import { FC, Fragment, useState } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { useMaterials } from './useMaterials';
 import { AddNewMaterialModal } from './addNewMaterialModal';
@@ -23,6 +23,12 @@ export const MaterialSelection: FC<MaterialSelectionProps> = ({
   >(defaultMaterial);
   const { user } = useAuth0();
   const [showDetails, setShowDetails] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMaterialSelected(defaultMaterial)
+  }, [defaultMaterial])
+
+
   return (
     <div className="flex flex-col">
       <h6 className="text-black mt-[10px] text-sm font-bold">Material</h6>
@@ -110,7 +116,7 @@ export const MaterialSelection: FC<MaterialSelectionProps> = ({
       {showDetails && materialSelected && (
         <div className="overflow-scroll justify-between">
           {Object.entries(materialSelected).map(([p, value]) => (
-            <div className='flex flex-row justify-between text-sm'>
+            <div className="flex flex-row justify-between text-sm">
               <div className="text-black">{p}:</div>
               <div className="text-black">{value}</div>
             </div>
